@@ -1,0 +1,29 @@
+if this helps with calibration and understanding data.
+
+I would like to simplifiy where the ui is looking for missions.
+
+If I just give it the cliffs of dover install folder it should be able to look in the:
+
+"*game root*\missions\Single\"  folder 
+as well as the 
+"*game root*\parts\bob\mission\campaign\"
+"*game root*\parts\bob\mission\Quick\"
+"*game root*\parts\bob\missions\Single\"
+"*game root*\parts\tobruk\mission\campaign\"
+"*game root*\parts\tobruk\mission\Quick\"
+"*game root*\parts\tobruk\missions\Single\"
+
+and if given the documents folder, it should be able to look in the:
+
+"*DocsRoot*\1C SoftClub\il-2 sturmovik cliffs of dover\missions\single\"
+"*DocsRoot*\1C SoftClub\il-2 sturmovik cliffs of dover\mission\campaign\"
+"*DocsRoot*\1C SoftClub\il-2 sturmovik cliffs of dover\mission\quick\"
+
+Whereas for the multiplayer maps (not used in the campaign browser)
+
+It can look in the 
+"*DocsRoot*\1C SoftClub\il-2 sturmovik cliffs of dover\missions\Multi\"
+"*GameRoot*\missions\Multi\" (which contains Co-op and Dogfight folders)
+"*GameRoot*\parts\bob\missions\Multi"
+"*GameRoot*\parts\tobruk\missions\Multi\" (which contains Co-op and Missions)
+

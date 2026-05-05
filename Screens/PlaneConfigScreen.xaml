@@ -1,0 +1,247 @@
+<UserControl x:Class="PlaneLoadoutWpfTest.Screens.PlaneConfigScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PlaneLoadoutWpfTest"
+             xmlns:controls="clr-namespace:PlaneLoadoutWpfTest.Controls"
+             Loaded="UserControl_Loaded">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Theme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="64"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="PLANE DEFAULT CONFIGURATION"
+                   Style="{StaticResource ScreenTitle}" VerticalAlignment="Center"/>
+
+        <Grid Grid.Row="1" Margin="0,8,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- ═══ LEFT — 3-D aircraft preview ════════════════════════════ -->
+            <controls:ModelViewer3D
+                x:Name="AircraftViewer"
+                ModelLabel="AIRCRAFT"
+                SubLabel="Hawker Hurricane Mk I"/>
+
+            <!-- ═══ RIGHT — Configuration options ══════════════════════════ -->
+            <Border Grid.Column="2" Style="{StaticResource GlassPanel}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+
+                        <Button Content="SELECT AIRCRAFT"
+                                HorizontalAlignment="Stretch" Margin="0,0,0,20"
+                                Click="SelectAircraft_Click"/>
+
+                        <!-- Selected aircraft display -->
+                        <TextBlock x:Name="SelectedAircraftLabel"
+                                   Text="Hawker Hurricane Mk I"
+                                   FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextGoldBrush}"
+                                   Margin="0,0,0,16" TextWrapping="Wrap"/>
+
+                        <!-- ── Army (Red / Blue) ── -->
+                        <Grid Margin="0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Army" Style="{StaticResource LabelText}"/>
+                            <ComboBox x:Name="ArmyCombo" Grid.Column="1"
+                                      SelectionChanged="ArmyCombo_SelectionChanged">
+                                <ComboBoxItem Content="Red"  IsSelected="True"/>
+                                <ComboBoxItem Content="Blue"/>
+                            </ComboBox>
+                        </Grid>
+
+                        <!-- ── Country (filtered by Army) ── -->
+                        <Grid Margin="0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Country" Style="{StaticResource LabelText}"/>
+                            <ComboBox x:Name="CountryCombo" Grid.Column="1"
+                                      SelectionChanged="CountryCombo_SelectionChanged"/>
+                        </Grid>
+
+                        <!-- ── Role ── -->
+                        <Grid Margin="0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Role" Style="{StaticResource LabelText}"/>
+                            <ComboBox Grid.Column="1" SelectedIndex="0">
+                                <ComboBoxItem Content="Fighter"/>
+                                <ComboBoxItem Content="Bomber"/>
+                                <ComboBoxItem Content="Attacker"/>
+                                <ComboBoxItem Content="Trainer"/>
+                            </ComboBox>
+                        </Grid>
+
+                        <!-- ── Squadron (filtered by Country) ── -->
+                        <Grid Margin="0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Squadron" Style="{StaticResource LabelText}"/>
+                            <ComboBox x:Name="SquadronCombo" Grid.Column="1"/>
+                        </Grid>
+
+                        <!-- ── Flight ── -->
+                        <Grid Margin="0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Flight" Style="{StaticResource LabelText}"/>
+                            <ComboBox Grid.Column="1" SelectedIndex="0">
+                                <ComboBoxItem Content="A Flight"/>
+                                <ComboBoxItem Content="B Flight"/>
+                            </ComboBox>
+                        </Grid>
+
+                        <!-- ── Callsign ── -->
+                        <Grid Margin="0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Callsign" Style="{StaticResource LabelText}"/>
+                            <TextBox Grid.Column="1" Text="Blue 1"/>
+                        </Grid>
+
+                        <!-- Divider -->
+                        <Rectangle Height="1" Fill="{StaticResource BorderBrushMuted}"
+                                   Margin="0,10,0,10"/>
+
+                        <!-- ── Paintscheme ── -->
+                        <Grid Margin="0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Paintscheme" Style="{StaticResource LabelText}"/>
+                            <ComboBox Grid.Column="1" SelectedIndex="0"
+                                      ToolTip="Available skins are per-aircraft. Full list populated from engine.">
+                                <ComboBoxItem Content="Standard RAF Dark Green / Dark Earth"/>
+                                <ComboBoxItem Content="Night Fighter (overall black)"/>
+                                <ComboBoxItem Content="Desert Pink / Middle Stone"/>
+                            </ComboBox>
+                        </Grid>
+
+                        <!-- ── Noseart ── -->
+                        <Grid Margin="0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Noseart (L)" Style="{StaticResource LabelText}"/>
+                            <ComboBox Grid.Column="1" SelectedIndex="0">
+                                <ComboBoxItem Content="None"/>
+                                <ComboBoxItem Content="Shark Mouth"/>
+                                <ComboBoxItem Content="Pinup"/>
+                            </ComboBox>
+                        </Grid>
+
+                        <Grid Margin="0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Noseart (R)" Style="{StaticResource LabelText}"/>
+                            <ComboBox Grid.Column="1" SelectedIndex="0">
+                                <ComboBoxItem Content="None"/>
+                                <ComboBoxItem Content="Shark Mouth"/>
+                                <ComboBoxItem Content="Pinup"/>
+                            </ComboBox>
+                        </Grid>
+
+                        <!-- ── Tail / Serial ── -->
+                        <Grid Margin="0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Tail Number" Style="{StaticResource LabelText}"/>
+                            <TextBox Grid.Column="1" Text="P3308"/>
+                        </Grid>
+
+                        <Grid Margin="0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Serial Number" Style="{StaticResource LabelText}"/>
+                            <TextBox Grid.Column="1" Text="L1592"/>
+                        </Grid>
+
+                        <!-- ── Markings visible ── -->
+                        <Grid Margin="0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Markings" Style="{StaticResource LabelText}"/>
+                            <CheckBox Grid.Column="1" IsChecked="True"
+                                      Content="Show markings" VerticalAlignment="Center"/>
+                        </Grid>
+
+                        <!-- ── Visual Weathering ── -->
+                        <Grid Margin="0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="44"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Weathering" Style="{StaticResource LabelText}"/>
+                            <Slider x:Name="WeatheringSlider" Grid.Column="1"
+                                    Minimum="0" Maximum="100" Value="30"
+                                    VerticalAlignment="Center"/>
+                            <!-- Binding to the slider — no hardcoded "30" -->
+                            <TextBlock Grid.Column="2" VerticalAlignment="Center"
+                                       HorizontalAlignment="Right"
+                                       Foreground="{StaticResource TextMainBrush}"
+                                       Text="{Binding ElementName=WeatheringSlider,
+                                                      Path=Value,
+                                                      StringFormat={}{0:0}}"/>
+                        </Grid>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <!-- ── Footer ────────────────────────────────────────────────────── -->
+        <Border Grid.Row="2" BorderBrush="{StaticResource BorderBrushMuted}"
+                BorderThickness="1" Background="#88161C1F">
+            <Grid Margin="18,11">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="180"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="← BACK" Height="38" Click="Back_Click"/>
+                <Button Grid.Column="1" Content="LOADOUT" Height="38" Margin="10,0,0,0"
+                        Click="Loadout_Click"/>
+                <Button Grid.Column="3" Content="SAVE" Height="38"
+                        Style="{StaticResource OkButton}"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

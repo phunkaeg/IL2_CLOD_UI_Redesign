@@ -1,0 +1,94 @@
+<UserControl x:Class="PlaneLoadoutWpfTest.Screens.ServerBrowserScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PlaneLoadoutWpfTest">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Theme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="46"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="64"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="SERVER BROWSER" Style="{StaticResource ScreenTitle}" VerticalAlignment="Center"/>
+
+        <!-- Source dropdown -->
+        <Grid Grid.Row="1" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="220"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Source:" Style="{StaticResource LabelText}"/>
+            <ComboBox Grid.Column="1" SelectedIndex="0">
+                <ComboBoxItem Content="Internet"/>
+                <ComboBoxItem Content="LAN"/>
+                <ComboBoxItem Content="Friends"/>
+                <ComboBoxItem Content="Favourites"/>
+                <ComboBoxItem Content="History"/>
+            </ComboBox>
+        </Grid>
+
+        <Border Grid.Row="2" Style="{StaticResource GlassPanel}" Margin="0,8,0,8">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="SERVERS" Style="{StaticResource PanelTitle}"/>
+                <ListView Grid.Row="1">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Server Name" Width="280"
+                                            DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="Type" Width="140"
+                                            DisplayMemberBinding="{Binding Type}"/>
+                            <GridViewColumn Header="Map" Width="180"
+                                            DisplayMemberBinding="{Binding Map}"/>
+                            <GridViewColumn Header="Players" Width="90"
+                                            DisplayMemberBinding="{Binding Players}"/>
+                            <GridViewColumn Header="Ping" Width="80"
+                                            DisplayMemberBinding="{Binding Ping}"/>
+                        </GridView>
+                    </ListView.View>
+                    <ListView.Items>
+                        <local:ServerEntry Name="JG2 Official Server" Type="Dogfight" Map="English Channel" Players="14/32" Ping="24 ms"/>
+                        <local:ServerEntry Name="RAF Coop Night" Type="Cooperative" Map="English Channel" Players="6/16" Ping="38 ms"/>
+                        <local:ServerEntry Name="Desert War 1942" Type="Campaign" Map="Tobruk" Players="9/24" Ping="55 ms"/>
+                        <local:ServerEntry Name="Training UK" Type="Training" Map="English Channel" Players="3/8" Ping="12 ms"/>
+                        <local:ServerEntry Name="Full Real Server DE" Type="Dogfight" Map="English Channel" Players="22/64" Ping="71 ms"/>
+                    </ListView.Items>
+                </ListView>
+            </Grid>
+        </Border>
+
+        <!-- Footer -->
+        <Border Grid.Row="3" BorderBrush="{StaticResource BorderBrushMuted}"
+                BorderThickness="1" Background="#88161C1F">
+            <Grid Margin="18,11">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition Width="160"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="← BACK" Height="38" Click="Back_Click"/>
+                <Button Grid.Column="1" Content="REFRESH" Height="38" Margin="8,0,0,0"/>
+                <Button Grid.Column="2" Content="FILTERS" Height="38" Margin="8,0,0,0"/>
+                <Button Grid.Column="4" Content="DIRECT CONNECT" Height="38" Margin="0,0,8,0"/>
+                <Button Grid.Column="5" Content="JOIN SERVER" Height="38"
+                        Style="{StaticResource OkButton}"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

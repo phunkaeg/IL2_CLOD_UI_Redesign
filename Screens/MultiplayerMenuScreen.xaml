@@ -1,0 +1,39 @@
+<UserControl x:Class="PlaneLoadoutWpfTest.Screens.MultiplayerMenuScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PlaneLoadoutWpfTest">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Theme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Rectangle>
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#B0080C0F"/>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <StackPanel Width="400" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="80,0,0,0">
+            <TextBlock Text="MULTIPLAYER" Style="{StaticResource ScreenTitle}" Margin="0,0,0,4"/>
+            <TextBlock Text="NET" FontFamily="Georgia" FontSize="18"
+                       Foreground="{StaticResource TextGoldBrush}" Margin="0,0,0,16"/>
+            <Rectangle Height="1" Fill="{StaticResource BorderBrushWarm}" Margin="0,0,0,8"/>
+
+            <Button Style="{StaticResource MainMenuItem}" Content="LOBBY"
+                    Click="Lobby_Click"/>
+            <Button Style="{StaticResource MainMenuItem}" Content="SERVER BROWSER"
+                    Click="ServerBrowser_Click"/>
+            <Button Style="{StaticResource MainMenuItem}" Content="LOCAL SERVER"
+                    Click="LocalServer_Click"/>
+
+            <Rectangle Height="1" Fill="{StaticResource BorderBrushMuted}" Margin="0,12,0,12"/>
+            <Button Content="← BACK" Width="140" HorizontalAlignment="Left"
+                    Click="Back_Click"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,106 @@
+<UserControl x:Class="PlaneLoadoutWpfTest.Screens.StatisticsScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PlaneLoadoutWpfTest">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Theme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="64"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="STATISTICS" Style="{StaticResource ScreenTitle}" VerticalAlignment="Center"/>
+
+        <Border Grid.Row="1" Style="{StaticResource GlassPanel}" Margin="0,8,0,8">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="8"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="8"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="220"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Header -->
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Theatre" Style="{StaticResource PanelTitle}" Margin="0,0,0,6"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="Hours Flown" Style="{StaticResource PanelTitle}" Margin="0,0,0,6" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="Kills" Style="{StaticResource PanelTitle}" Margin="0,0,0,6" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Row="0" Grid.Column="3" Text="Deaths" Style="{StaticResource PanelTitle}" Margin="0,0,0,6" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Row="0" Grid.Column="4" Text="Planes Flown" Style="{StaticResource PanelTitle}" Margin="0,0,0,6" HorizontalAlignment="Center"/>
+
+                <Rectangle Grid.Row="1" Grid.ColumnSpan="5" Height="1" Fill="{StaticResource BorderBrushWarm}"/>
+
+                <!-- Row 1 -->
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Battle of Britain" Style="{StaticResource BodyText}" Margin="0,4"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" Text="47.3" Style="{StaticResource BodyText}" HorizontalAlignment="Center" Margin="0,4"/>
+                <TextBlock Grid.Row="3" Grid.Column="2" Text="12" Style="{StaticResource BodyText}" HorizontalAlignment="Center" Margin="0,4"/>
+                <TextBlock Grid.Row="3" Grid.Column="3" Text="3" Style="{StaticResource BodyText}" HorizontalAlignment="Center" Margin="0,4"/>
+                <TextBlock Grid.Row="3" Grid.Column="4" Text="Hurricane Mk I" Style="{StaticResource BodyText}" HorizontalAlignment="Center" Margin="0,4"/>
+
+                <!-- Row 2 -->
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="Western Desert" Style="{StaticResource BodyText}" Margin="0,4"/>
+                <TextBlock Grid.Row="4" Grid.Column="1" Text="18.6" Style="{StaticResource BodyText}" HorizontalAlignment="Center" Margin="0,4"/>
+                <TextBlock Grid.Row="4" Grid.Column="2" Text="5" Style="{StaticResource BodyText}" HorizontalAlignment="Center" Margin="0,4"/>
+                <TextBlock Grid.Row="4" Grid.Column="3" Text="1" Style="{StaticResource BodyText}" HorizontalAlignment="Center" Margin="0,4"/>
+                <TextBlock Grid.Row="4" Grid.Column="4" Text="Hurricane Mk II" Style="{StaticResource BodyText}" HorizontalAlignment="Center" Margin="0,4"/>
+
+                <!-- Row 3 -->
+                <TextBlock Grid.Row="5" Grid.Column="0" Text="Training" Style="{StaticResource BodyText}" Margin="0,4"/>
+                <TextBlock Grid.Row="5" Grid.Column="1" Text="8.2" Style="{StaticResource BodyText}" HorizontalAlignment="Center" Margin="0,4"/>
+                <TextBlock Grid.Row="5" Grid.Column="2" Text="0" Style="{StaticResource BodyText}" HorizontalAlignment="Center" Margin="0,4"/>
+                <TextBlock Grid.Row="5" Grid.Column="3" Text="0" Style="{StaticResource BodyText}" HorizontalAlignment="Center" Margin="0,4"/>
+                <TextBlock Grid.Row="5" Grid.Column="4" Text="Hurricane Mk I" Style="{StaticResource BodyText}" HorizontalAlignment="Center" Margin="0,4"/>
+
+                <Rectangle Grid.Row="6" Grid.ColumnSpan="5" Height="1" Fill="{StaticResource BorderBrushMuted}" Margin="0,8"/>
+
+                <!-- Total row -->
+                <TextBlock Grid.Row="7" Grid.ColumnSpan="5" Height="1" Margin="0,4"/>
+
+                <TextBlock Grid.Row="8" Grid.Column="0" Text="TOTAL"
+                           FontFamily="Georgia" FontSize="15"
+                           Foreground="{StaticResource TextGoldBrush}" FontWeight="SemiBold" Margin="0,4"/>
+                <TextBlock Grid.Row="8" Grid.Column="1" Text="74.1"
+                           Foreground="{StaticResource TextGoldBrush}" FontWeight="SemiBold"
+                           HorizontalAlignment="Center" Margin="0,4"/>
+                <TextBlock Grid.Row="8" Grid.Column="2" Text="17"
+                           Foreground="{StaticResource TextGoldBrush}" FontWeight="SemiBold"
+                           HorizontalAlignment="Center" Margin="0,4"/>
+                <TextBlock Grid.Row="8" Grid.Column="3" Text="4"
+                           Foreground="{StaticResource TextGoldBrush}" FontWeight="SemiBold"
+                           HorizontalAlignment="Center" Margin="0,4"/>
+                <TextBlock Grid.Row="8" Grid.Column="4" Text="3 types"
+                           Foreground="{StaticResource TextGoldBrush}" FontWeight="SemiBold"
+                           HorizontalAlignment="Center" Margin="0,4"/>
+            </Grid>
+        </Border>
+
+        <!-- Footer -->
+        <Border Grid.Row="2" BorderBrush="{StaticResource BorderBrushMuted}"
+                BorderThickness="1" Background="#88161C1F">
+            <Grid Margin="18,11">
+                <Button Content="← BACK" Width="146" Height="38" HorizontalAlignment="Left"
+                        Click="Back_Click"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

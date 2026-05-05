@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Resource Include="Assets\*.png" />
+    <Resource Include="Assets\*.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="map_calibration_data.txt" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <!-- 3-D model assets — copied to output so HelixToolkit can read them at runtime -->
+  <ItemGroup>
+    <Content Include="Assets\3d\**\*" CopyToOutputDirectory="PreserveNewest"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="HelixToolkit.Wpf" Version="3.1.2" />
+  </ItemGroup>
+</Project>

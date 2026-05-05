@@ -1,0 +1,88 @@
+<UserControl x:Class="PlaneLoadoutWpfTest.Screens.CreditsScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PlaneLoadoutWpfTest">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Theme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="64"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="CREDITS" Style="{StaticResource ScreenTitle}" VerticalAlignment="Center"/>
+
+        <Border Grid.Row="1" Style="{StaticResource GlassPanel}" Margin="0,8,0,8">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="IL-2 STURMOVIK: CLIFFS OF DOVER — BLITZ EDITION"
+                               FontFamily="Georgia" FontSize="22"
+                               Foreground="{StaticResource TextGoldBrush}"
+                               HorizontalAlignment="Center" Margin="0,0,0,24"/>
+
+                    <TextBlock Text="ORIGINAL DEVELOPMENT" Style="{StaticResource PanelTitle}" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                    <TextBlock Style="{StaticResource BodyText}" HorizontalAlignment="Center" Margin="0,0,0,20"
+                               Text="1C: Maddox Games"/>
+
+                    <TextBlock Text="BLITZ EDITION — TEAM FUSION SIMULATIONS" Style="{StaticResource PanelTitle}" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+
+                    <TextBlock Text="LEAD DEVELOPER" Style="{StaticResource LabelText}" HorizontalAlignment="Center" Margin="0,0,0,4"/>
+                    <TextBlock Text="Philip Sherwood" Style="{StaticResource BodyText}" HorizontalAlignment="Center" Margin="0,0,0,12"/>
+
+                    <TextBlock Text="PROGRAMMING" Style="{StaticResource LabelText}" HorizontalAlignment="Center" Margin="0,0,0,4"/>
+                    <TextBlock HorizontalAlignment="Center" Style="{StaticResource BodyText}" Margin="0,0,0,12"
+                               Text="Warrant Officer&#x0a;Bongodriver&#x0a;Heinkill&#x0a;StG77_Kondor"/>
+
+                    <TextBlock Text="MISSION DESIGN" Style="{StaticResource LabelText}" HorizontalAlignment="Center" Margin="0,0,0,4"/>
+                    <TextBlock HorizontalAlignment="Center" Style="{StaticResource BodyText}" Margin="0,0,0,12"
+                               Text="Mission_bug&#x0a;Kling&#x0a;Painless"/>
+
+                    <TextBlock Text="3D MODELLING &amp; TEXTURES" Style="{StaticResource LabelText}" HorizontalAlignment="Center" Margin="0,0,0,4"/>
+                    <TextBlock HorizontalAlignment="Center" Style="{StaticResource BodyText}" Margin="0,0,0,12"
+                               Text="RoflSeal&#x0a;Mikew99&#x0a;Barnaclebill"/>
+
+                    <TextBlock Text="SOUNDS" Style="{StaticResource LabelText}" HorizontalAlignment="Center" Margin="0,0,0,4"/>
+                    <TextBlock HorizontalAlignment="Center" Style="{StaticResource BodyText}" Margin="0,0,0,12"
+                               Text="CrazyFlyer"/>
+
+                    <TextBlock Text="QUALITY ASSURANCE" Style="{StaticResource LabelText}" HorizontalAlignment="Center" Margin="0,0,0,4"/>
+                    <TextBlock HorizontalAlignment="Center" Style="{StaticResource BodyText}" Margin="0,0,0,12"
+                               Text="KG26_Commodore&#x0a;Atlan&#x0a;Avimimus"/>
+
+                    <TextBlock Text="SPECIAL THANKS" Style="{StaticResource LabelText}" HorizontalAlignment="Center" Margin="0,20,0,4"/>
+                    <TextBlock HorizontalAlignment="Center" Style="{StaticResource BodyText}" Margin="0,0,0,12"
+                               TextWrapping="Wrap" TextAlignment="Center"
+                               Text="To the entire IL-2 Cliffs of Dover community whose passion, bug reports, and encouragement made this edition possible. The Battle of Britain pilots whose courage and sacrifice we honour every time we fly."/>
+
+                    <TextBlock Text="DEDICATED TO THE FEW" FontFamily="Georgia" FontSize="16"
+                               Foreground="{StaticResource TextGoldBrush}"
+                               HorizontalAlignment="Center" Margin="0,20,0,8"/>
+                    <TextBlock Text="1940 — Never in the field of human conflict was so much owed by so many to so few."
+                               Style="{StaticResource BodyText}" FontStyle="Italic"
+                               HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"
+                               Margin="40,0,40,24"/>
+
+                    <TextBlock Text="v2.0 BLITZ — Community Edition" Style="{StaticResource LabelText}"
+                               HorizontalAlignment="Center" Margin="0,0,0,8" Opacity="0.6"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Footer -->
+        <Border Grid.Row="2" BorderBrush="{StaticResource BorderBrushMuted}"
+                BorderThickness="1" Background="#88161C1F">
+            <Grid Margin="18,11">
+                <Button Content="← BACK" Width="146" Height="38" HorizontalAlignment="Left"
+                        Click="Back_Click"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

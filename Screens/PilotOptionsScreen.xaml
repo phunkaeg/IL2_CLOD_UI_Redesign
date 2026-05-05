@@ -1,0 +1,108 @@
+<UserControl x:Class="PlaneLoadoutWpfTest.Screens.PilotOptionsScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PlaneLoadoutWpfTest"
+             xmlns:controls="clr-namespace:PlaneLoadoutWpfTest.Controls">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Theme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="64"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="PILOT OPTIONS" Style="{StaticResource ScreenTitle}" VerticalAlignment="Center"/>
+
+        <Grid Grid.Row="1" Margin="0,8,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- ═══ LEFT — 3-D pilot model preview ══════════════════════════ -->
+            <controls:ModelViewer3D
+                x:Name="PilotViewer"
+                ModelLabel="PILOT"
+                SubLabel="Standard RAF kit"
+                InitialRadius="4.7"/>
+
+            <!-- Options panel -->
+            <Border Grid.Column="2" Style="{StaticResource GlassPanel}">
+                <StackPanel>
+                    <Grid Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="130"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                        <TextBlock Text="Country" Style="{StaticResource LabelText}"/>
+                        <ComboBox Grid.Column="1" SelectedIndex="0">
+                            <ComboBoxItem Content="United Kingdom"/>
+                            <ComboBoxItem Content="Germany"/>
+                            <ComboBoxItem Content="United States"/>
+                        </ComboBox>
+                    </Grid>
+
+                    <Grid Margin="0,0,0,16">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="130"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                        <TextBlock Text="Body" Style="{StaticResource LabelText}"/>
+                        <ComboBox Grid.Column="1" SelectedIndex="0">
+                            <ComboBoxItem Content="Standard RAF"/>
+                            <ComboBoxItem Content="Summer Kit"/>
+                            <ComboBoxItem Content="Winter Kit"/>
+                        </ComboBox>
+                    </Grid>
+
+                    <TextBlock Text="EQUIPMENT" Style="{StaticResource PanelTitle}"/>
+                    <Rectangle Height="1" Fill="{StaticResource BorderBrushMuted}" Margin="0,0,0,10"/>
+
+                    <!-- Checkboxes in 2 columns -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="32"/>
+                            <RowDefinition Height="32"/>
+                            <RowDefinition Height="32"/>
+                            <RowDefinition Height="32"/>
+                            <RowDefinition Height="32"/>
+                        </Grid.RowDefinitions>
+
+                        <CheckBox Grid.Row="0" Grid.Column="0" Content="Head"        IsChecked="True" Margin="0,4"/>
+                        <CheckBox Grid.Row="0" Grid.Column="1" Content="Torso"       IsChecked="True" Margin="0,4"/>
+                        <CheckBox Grid.Row="1" Grid.Column="0" Content="Hands"       IsChecked="True" Margin="0,4"/>
+                        <CheckBox Grid.Row="1" Grid.Column="1" Content="Legs"        IsChecked="True" Margin="0,4"/>
+                        <CheckBox Grid.Row="2" Grid.Column="0" Content="Feet"        IsChecked="True" Margin="0,4"/>
+                        <CheckBox Grid.Row="2" Grid.Column="1" Content="Mask"        IsChecked="True" Margin="0,4"/>
+                        <CheckBox Grid.Row="3" Grid.Column="0" Content="Glasses"     IsChecked="False" Margin="0,4"/>
+                        <CheckBox Grid.Row="3" Grid.Column="1" Content="Headphones"  IsChecked="True" Margin="0,4"/>
+                        <CheckBox Grid.Row="4" Grid.Column="0" Content="Lifejacket"  IsChecked="True" Margin="0,4"/>
+                        <CheckBox Grid.Row="4" Grid.Column="1" Content="Parachute"   IsChecked="True" Margin="0,4"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- Footer -->
+        <Border Grid.Row="2" BorderBrush="{StaticResource BorderBrushMuted}"
+                BorderThickness="1" Background="#88161C1F">
+            <Grid Margin="18,11">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="180"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="← BACK" Height="38" Click="Back_Click"/>
+                <Button Grid.Column="2" Content="SAVE" Height="38"
+                        Style="{StaticResource OkButton}" Click="Save_Click"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,206 @@
+<UserControl x:Class="PlaneLoadoutWpfTest.SettingsOverlay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Theme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <!-- Root grid covers the entire window -->
+    <Grid>
+
+        <!-- ── Backdrop — clicking it closes the overlay ───────────────────── -->
+        <Rectangle Fill="#CC000000" MouseLeftButtonDown="Backdrop_MouseDown"
+                   Cursor="Arrow"/>
+
+        <!-- ── Settings panel ──────────────────────────────────────────────── -->
+        <Border x:Name="PanelBorder"
+                Width="480"
+                HorizontalAlignment="Right" VerticalAlignment="Stretch"
+                Background="#F2141B1F"
+                BorderBrush="{StaticResource BorderBrushWarm}"
+                BorderThickness="1,0,0,0"
+                Padding="28,22,28,22">
+
+            <Border.RenderTransform>
+                <TranslateTransform x:Name="PanelSlide" X="480"/>
+            </Border.RenderTransform>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>   <!-- Header -->
+                    <RowDefinition Height="*"/>      <!-- Scrollable path fields -->
+                    <RowDefinition Height="Auto"/>   <!-- Divider -->
+                    <RowDefinition Height="Auto"/>   <!-- Scan + status -->
+                    <RowDefinition Height="Auto"/>   <!-- Footer -->
+                </Grid.RowDefinitions>
+
+                <!-- ── Header ──────────────────────────────────────────────── -->
+                <Grid Grid.Row="0" Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <TextBlock Text="⚙  UI OVERHAUL SETTINGS"
+                                   Style="{StaticResource PanelTitle}"
+                                   FontSize="16" Margin="0,0,0,2"/>
+                        <TextBlock Text="Set mission source folders, then click Scan and Populate."
+                                   Style="{StaticResource LabelText}" FontSize="11.5"/>
+                    </StackPanel>
+
+                    <Button Grid.Column="1" Content="✕" Width="30" Height="30"
+                            VerticalAlignment="Top" Click="Close_Click"
+                            ToolTip="Close settings"/>
+                </Grid>
+
+                <!-- ── Path fields (scrollable) ────────────────────────────── -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto"
+                              Margin="0,0,0,16">
+                    <StackPanel>
+
+                        <!-- Game root -->
+                        <TextBlock Text="CLIFFS OF DOVER INSTALL FOLDER" Style="{StaticResource LabelText}"
+                                   FontSize="11" Margin="0,0,0,3"/>
+                        <TextBlock Style="{StaticResource LabelText}" FontSize="10" Opacity="0.55"
+                                   Margin="0,0,0,4"
+                                   Text="Example: …\steamapps\common\IL-2 Sturmovik Cliffs of Dover Blitz"/>
+                        <Grid Margin="0,0,0,14">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="74"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="GameRootBox"
+                                     VerticalContentAlignment="Center" Height="32"
+                                     ToolTip="Main game install folder"/>
+                            <Button Grid.Column="1" Content="Browse…" Height="32"
+                                    Margin="6,0,0,0" Click="BrowseGameRoot_Click"/>
+                        </Grid>
+
+                        <!-- Documents root -->
+                        <TextBlock Text="DOCUMENTS ROOT" Style="{StaticResource LabelText}"
+                                   FontSize="11" Margin="0,0,0,3"/>
+                        <TextBlock Style="{StaticResource LabelText}" FontSize="10" Opacity="0.55"
+                                   Margin="0,0,0,4"
+                                   Text="Example: …\Documents. The app adds the 1C SoftClub folder automatically."/>
+                        <Grid Margin="0,0,0,20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="74"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="DocsRootBox"
+                                     VerticalContentAlignment="Center" Height="32"
+                                     ToolTip="Documents or OneDrive Documents folder"/>
+                            <Button Grid.Column="1" Content="Browse…" Height="32"
+                                    Margin="6,0,0,0" Click="BrowseDocsRoot_Click"/>
+                        </Grid>
+
+                        <!-- ── UI Resolution ───────────────────────────────── -->
+                        <Rectangle Height="1" Fill="{StaticResource BorderBrushMuted}"
+                                   Margin="0,0,0,16"/>
+                        <TextBlock Text="UI RESOLUTION" Style="{StaticResource LabelText}"
+                                   FontSize="11" Margin="0,0,0,4"/>
+                        <TextBlock Style="{StaticResource LabelText}" FontSize="10" Opacity="0.55"
+                                   Margin="0,0,0,8"
+                                   Text="Override the window size. 'Maximised' is recommended."/>
+                        <ComboBox x:Name="ResolutionCombo"
+                                  SelectionChanged="ResolutionCombo_Changed">
+                            <ComboBoxItem Tag="0,0"        Content="Maximised (recommended)" IsSelected="True"/>
+                            <ComboBoxItem Tag="1920,1080"  Content="1920 × 1080 (Full HD, windowed)"/>
+                            <ComboBoxItem Tag="1280,800"   Content="1280 × 800 (windowed)"/>
+                            <ComboBoxItem Tag="1280,720"   Content="1280 × 720 (HD, windowed)"/>
+                        </ComboBox>
+
+                        <!-- ── Logo Glow ───────────────────────────────────── -->
+                        <Rectangle Height="1" Fill="{StaticResource BorderBrushMuted}"
+                                   Margin="0,16,0,16"/>
+                        <TextBlock Text="MAIN MENU LOGO GLOW" Style="{StaticResource LabelText}"
+                                   FontSize="11" Margin="0,0,0,4"/>
+                        <TextBlock Style="{StaticResource LabelText}" FontSize="10" Opacity="0.55"
+                                   Margin="0,0,0,8"
+                                   Text="Choose how the glow layer under the logo animates."/>
+                        <ComboBox x:Name="LogoGlowCombo"
+                                  SelectionChanged="LogoGlowCombo_Changed">
+                            <ComboBoxItem Tag="Fire" Content="Fire flicker"/>
+                            <ComboBoxItem Tag="Breathe" Content="Gentle breathing"/>
+                        </ComboBox>
+
+                        <!-- ── Campaign tools ──────────────────────────────── -->
+                        <Rectangle Height="1" Fill="{StaticResource BorderBrushMuted}"
+                                   Margin="0,16,0,16"/>
+                        <TextBlock Text="CAMPAIGN TOOLS" Style="{StaticResource LabelText}"
+                                   FontSize="11" Margin="0,0,0,4"/>
+                        <TextBlock Style="{StaticResource LabelText}" FontSize="10" Opacity="0.55"
+                                   Margin="0,0,0,8"
+                                   Text="Export parsed campaign data, parser reports, or discovery diagnostics."/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Button Content="EXPORT JSON" Height="34"
+                                    Click="ExportCampaignJson_Click"/>
+                            <Button Grid.Column="2" Content="PARSER REPORT" Height="34"
+                                    Click="ExportCampaignReport_Click"/>
+                            <Button Grid.Column="4" Content="DISCOVERY" Height="34"
+                                    Click="ExportCampaignDiscovery_Click"/>
+                        </Grid>
+
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- ── Divider ───────────────────────────────────────────────── -->
+                <Rectangle Grid.Row="2" Height="1"
+                           Fill="{StaticResource BorderBrushMuted}"
+                           Margin="0,0,0,16"/>
+
+                <!-- ── Scan ──────────────────────────────────────────────────── -->
+                <StackPanel Grid.Row="3" Margin="0,0,0,18">
+
+                    <TextBlock Style="{StaticResource LabelText}" FontSize="11.5"
+                               TextWrapping="Wrap" Margin="0,0,0,12" LineHeight="18">
+                        Recursively searches each folder for .mis + .briefing pairs
+                        and populates all mission lists in the UI.  Images are
+                        referenced by absolute path — nothing is copied locally.
+                    </TextBlock>
+
+                    <Button x:Name="ScanButton" Content="SCAN AND POPULATE"
+                            Height="40" HorizontalAlignment="Stretch"
+                            Style="{StaticResource OkButton}"
+                            Click="Scan_Click"/>
+
+                    <TextBlock x:Name="StatusLabel"
+                               Style="{StaticResource LabelText}"
+                               FontSize="12" Margin="0,10,0,0"
+                               TextWrapping="Wrap" Text=""/>
+                </StackPanel>
+
+                <!-- ── Footer ────────────────────────────────────────────────── -->
+                <Border Grid.Row="4"
+                        BorderBrush="{StaticResource BorderBrushMuted}"
+                        BorderThickness="0,1,0,0" Padding="0,14,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="110"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Style="{StaticResource LabelText}" FontSize="10.5"
+                                   VerticalAlignment="Center" Opacity="0.55"
+                                   Text="Paths saved automatically on Scan."/>
+                        <Button Grid.Column="1" Content="CLOSE" Height="36"
+                                Click="Close_Click"/>
+                    </Grid>
+                </Border>
+
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

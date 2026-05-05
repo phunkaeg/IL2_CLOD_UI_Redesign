@@ -1,0 +1,168 @@
+<UserControl x:Class="PlaneLoadoutWpfTest.Screens.CampaignSelectorScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:svc="clr-namespace:PlaneLoadoutWpfTest.Services">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Theme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate x:Key="CampaignChoiceTemplate" DataType="{x:Type svc:CampaignSelectionItem}">
+                <Border x:Name="Card" BorderBrush="{StaticResource BorderBrushMuted}" BorderThickness="1"
+                        Background="#99101516" Padding="12" Margin="0,0,0,8">
+                    <Grid>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Title}" Style="{StaticResource TitleText}" FontSize="18"
+                                       TextTrimming="CharacterEllipsis"/>
+                            <TextBlock Text="{Binding SourceLine}" Style="{StaticResource SubtitleText}"
+                                       FontSize="12" Margin="0,4,0,0"/>
+                            <TextBlock Text="{Binding Summary}" Style="{StaticResource LabelText}"
+                                       TextTrimming="CharacterEllipsis" Margin="0,8,0,0" Opacity="0.82"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <DataTemplate.Triggers>
+                    <DataTrigger Binding="{Binding Source}" Value="Lenny Campaigns">
+                        <Setter TargetName="Card" Property="BorderBrush" Value="{StaticResource BorderBrushWarm}"/>
+                        <Setter TargetName="Card" Property="Background" Value="#99312B1F"/>
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="122"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="64"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="CAMPAIGN SELECTOR" Style="{StaticResource ScreenTitle}"/>
+                    <TextBlock x:Name="StatusText" Text="Scanning campaign folders..." Style="{StaticResource LabelText}"
+                               Margin="0,6,0,0" Opacity="0.82"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <TextBlock Text="THEATRE" Style="{StaticResource LabelText}" Margin="0,0,0,6"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="TheaterAllButton" Content="ALL" Height="34" Width="94"
+                                Click="TheaterFilter_Click" Tag="All"/>
+                        <Button x:Name="TheaterStraitButton" Content="STRAIT" Height="34" Width="94"
+                                Margin="8,0,0,0" Click="TheaterFilter_Click" Tag="Strait of Dover"/>
+                        <Button x:Name="TheaterTobrukButton" Content="TOBRUK" Height="34" Width="94"
+                                Margin="8,0,0,0" Click="TheaterFilter_Click" Tag="Tobruk"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="445"/>
+                <ColumnDefinition Width="14"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+        <Border Style="{StaticResource GlassPanel}" Padding="18">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="AVAILABLE CAMPAIGNS" Style="{StaticResource PanelTitle}"/>
+                <ListBox Grid.Row="1" x:Name="CampaignChoiceList"
+                         ItemTemplate="{StaticResource CampaignChoiceTemplate}"
+                         BorderThickness="0" Background="Transparent"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         ScrollViewer.CanContentScroll="False"
+                         SelectionChanged="CampaignChoiceList_SelectionChanged"
+                         MouseDoubleClick="CampaignChoiceList_MouseDoubleClick">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
+            </Grid>
+        </Border>
+
+            <Border Grid.Column="2" Style="{StaticResource GlassPanel}" Padding="18">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border BorderBrush="{StaticResource BorderBrushMuted}" BorderThickness="1"
+                            MaxHeight="405"
+                            Background="#20101516" ClipToBounds="True">
+                        <Grid>
+                            <Viewbox Stretch="Uniform">
+                                <Grid Width="1600" Height="900">
+                                    <Image x:Name="CampaignPosterImage" Stretch="UniformToFill"/>
+                                </Grid>
+                            </Viewbox>
+                            <TextBlock x:Name="NoCampaignPosterHint" Text="NO CAMPAIGN POSTER"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       Style="{StaticResource LabelText}" Opacity="0.35"/>
+                        </Grid>
+                    </Border>
+
+                    <StackPanel Grid.Row="1" Margin="0,14,0,10">
+                        <TextBlock x:Name="CampaignDetailTitle" Style="{StaticResource ScreenTitle}"
+                                   FontSize="34" TextWrapping="Wrap"/>
+                        <TextBlock x:Name="CampaignDetailMeta" Style="{StaticResource SubtitleText}"
+                                   Margin="0,4,0,0"/>
+                    </StackPanel>
+
+                    <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <TextBlock Text="CAMPAIGN BRIEFING" Style="{StaticResource PanelTitle}"
+                                       Margin="0,0,0,8"/>
+                            <TextBlock x:Name="CampaignDescriptionText" Style="{StaticResource BodyText}"
+                                       TextWrapping="Wrap" Opacity="0.86" LineHeight="20"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="2" BorderBrush="{StaticResource BorderBrushMuted}" BorderThickness="1"
+                Background="#88161C1F">
+            <Grid Margin="18,11">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="180"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="BACK" Height="38" Click="Back_Click"/>
+                <TextBlock Grid.Column="1" x:Name="SelectedPathText" Style="{StaticResource LabelText}"
+                           VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                <Button Grid.Column="2" Content="RESCAN" Height="38" Margin="0,0,10,0"
+                        Click="Rescan_Click"/>
+                <Button Grid.Column="3" x:Name="NextButton" Content="NEXT" Height="38"
+                        Style="{StaticResource OkButton}" Click="Next_Click" IsEnabled="False"/>
+            </Grid>
+        </Border>
+
+        <Border x:Name="LoadingOverlay" Grid.RowSpan="3" Visibility="Collapsed"
+                Background="#D006090A" BorderBrush="{StaticResource BorderBrushWarm}" BorderThickness="1">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="PARSING DATA" Style="{StaticResource ScreenTitle}" FontSize="32"
+                           HorizontalAlignment="Center"/>
+                <TextBlock x:Name="LoadingOverlayText" Text="Building campaign list..."
+                           Style="{StaticResource LabelText}" Margin="0,10,0,0" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

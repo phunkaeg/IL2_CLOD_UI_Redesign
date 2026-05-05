@@ -1,0 +1,155 @@
+<UserControl x:Class="PlaneLoadoutWpfTest.Screens.RealismScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PlaneLoadoutWpfTest">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Theme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="64"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="REALISM OPTIONS"
+                   Style="{StaticResource ScreenTitle}" VerticalAlignment="Center"/>
+
+        <!-- ── Scrollable realism panels ───────────────────────────────────── -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <Grid Margin="0,4,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="14"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!-- ══ LEFT COLUMN ══════════════════════════════════════════ -->
+                <StackPanel Grid.Column="0" Grid.Row="0">
+
+                    <!-- MAIN -->
+                    <Border Style="{StaticResource GlassPanel}">
+                        <StackPanel>
+                            <TextBlock Text="MAIN" Style="{StaticResource PanelTitle}"/>
+                            <CheckBox Content="Vulnerability"                    IsChecked="True"  Margin="0,3"/>
+                            <CheckBox Content="Realistic Ground Collisions"      IsChecked="True"  Margin="0,3"/>
+                            <CheckBox Content="Realistic Gunnery"                IsChecked="False" Margin="0,3"/>
+                            <CheckBox Content="Realistic Bombing"                IsChecked="False" Margin="0,3"/>
+                            <CheckBox Content="Limited Ammo"                     IsChecked="False" Margin="0,3"/>
+                            <CheckBox Content="Limited Fuel"                     IsChecked="False" Margin="0,3"/>
+                            <CheckBox Content="No AI Control"                    IsChecked="False" Margin="0,3"/>
+                            <CheckBox Content="Mission Take-off and Landing"     IsChecked="False" Margin="0,3"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ENGINES -->
+                    <Border Style="{StaticResource GlassPanel}" Margin="0,10,0,0">
+                        <StackPanel>
+                            <TextBlock Text="ENGINES" Style="{StaticResource PanelTitle}"/>
+                            <CheckBox Content="Complex Engine Management"         IsChecked="False" Margin="0,3"/>
+                            <CheckBox Content="Engine Temperature Effects"        IsChecked="False" Margin="0,3"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ATMOSPHERE AND HANDLING -->
+                    <Border Style="{StaticResource GlassPanel}" Margin="0,10,0,0">
+                        <StackPanel>
+                            <TextBlock Text="ATMOSPHERE AND HANDLING" Style="{StaticResource PanelTitle}"/>
+                            <CheckBox Content="Wind and Turbulence"               IsChecked="False" Margin="0,3"/>
+                            <CheckBox Content="Flutter Effects"                   IsChecked="False" Margin="0,3"/>
+                            <CheckBox Content="Torque and Gyro Effects"           IsChecked="False" Margin="0,3"/>
+                            <CheckBox Content="Stalls and Spins"                  IsChecked="False" Margin="0,3"/>
+                            <CheckBox Content="Clouds"                            IsChecked="True"  Margin="0,3"/>
+                        </StackPanel>
+                    </Border>
+
+                </StackPanel>
+
+                <!-- ══ RIGHT COLUMN ═════════════════════════════════════════ -->
+                <StackPanel Grid.Column="2">
+
+                    <!-- VIEWS -->
+                    <Border Style="{StaticResource GlassPanel}">
+                        <StackPanel>
+                            <TextBlock Text="VIEWS" Style="{StaticResource PanelTitle}"/>
+                            <CheckBox Content="Cockpit Always On"                 IsChecked="True"  Margin="0,3"/>
+                            <CheckBox Content="No Outside Views"                  IsChecked="False" Margin="0,3"/>
+                            <CheckBox Content="Head Shake"                        IsChecked="True"  Margin="0,3"/>
+                            <CheckBox Content="Blackouts and Redouts"             IsChecked="False" Margin="0,3"/>
+                            <CheckBox Content="No Padlock"                        IsChecked="False" Margin="0,3"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- VISUAL AIDS -->
+                    <Border Style="{StaticResource GlassPanel}" Margin="0,10,0,0">
+                        <StackPanel>
+                            <TextBlock Text="VISUAL AIDS" Style="{StaticResource PanelTitle}"/>
+                            <CheckBox Content="No Object Icons"                   IsChecked="False" Margin="0,3"/>
+                            <CheckBox Content="No Map Icons"                      IsChecked="False" Margin="0,3"/>
+                            <CheckBox Content="No Map Path"                       IsChecked="False" Margin="0,3"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- OTHER AIDS -->
+                    <Border Style="{StaticResource GlassPanel}" Margin="0,10,0,0">
+                        <StackPanel>
+                            <TextBlock Text="OTHER AIDS" Style="{StaticResource PanelTitle}"/>
+                            <CheckBox Content="No Groundcontrol Targets"          IsChecked="False" Margin="0,3"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- AIRCRAFT SWITCHING -->
+                    <Border Style="{StaticResource GlassPanel}" Margin="0,10,0,0">
+                        <StackPanel>
+                            <TextBlock Text="AIRCRAFT SWITCHING" Style="{StaticResource PanelTitle}"/>
+                            <CheckBox Content="Cannot Switch Positions"           IsChecked="False" Margin="0,3"/>
+                            <CheckBox Content="Cannot Switch Planes"              IsChecked="False" Margin="0,3"/>
+                            <CheckBox Content="Cannot Select Planes"              IsChecked="False" Margin="0,3"/>
+                            <CheckBox Content="Cannot Switch Sides"               IsChecked="False" Margin="0,3"/>
+                            <CheckBox Content="Cannot Select Sides"               IsChecked="False" Margin="0,3"/>
+                            <CheckBox Content="Cannot Create Groups"              IsChecked="False" Margin="0,3"/>
+                        </StackPanel>
+                    </Border>
+
+                </StackPanel>
+
+            </Grid>
+        </ScrollViewer>
+
+        <!-- ── Footer ──────────────────────────────────────────────────────── -->
+        <Border Grid.Row="2" BorderBrush="{StaticResource BorderBrushMuted}"
+                BorderThickness="1" Background="#88161C1F">
+            <Grid Margin="18,11">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="160"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="← CANCEL" Height="38" Click="Cancel_Click"/>
+
+                <!-- Preset selector — right-aligned before OK -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="Preset:" Style="{StaticResource LabelText}"
+                               VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <ComboBox Width="160" SelectedIndex="1">
+                        <ComboBoxItem Content="Easy"/>
+                        <ComboBoxItem Content="Normal"/>
+                        <ComboBoxItem Content="Realistic"/>
+                        <ComboBoxItem Content="Custom"/>
+                    </ComboBox>
+                </StackPanel>
+
+                <Button Grid.Column="4" Content="OK" Height="38"
+                        Style="{StaticResource OkButton}" Click="Ok_Click"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

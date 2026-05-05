@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'PlaneLoadoutWpfTest.Exe'">
+    <BaseIntermediateOutputPath>obj\exe\</BaseIntermediateOutputPath>
+    <BaseOutputPath>bin\exe\</BaseOutputPath>
+  </PropertyGroup>
+</Project>

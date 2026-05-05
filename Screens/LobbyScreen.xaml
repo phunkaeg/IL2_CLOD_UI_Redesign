@@ -1,0 +1,176 @@
+<UserControl x:Class="PlaneLoadoutWpfTest.Screens.LobbyScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PlaneLoadoutWpfTest">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Theme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <!-- Root Grid allows the filter popup to overlay the lobby list -->
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="64"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="LOBBY" Style="{StaticResource ScreenTitle}" VerticalAlignment="Center"/>
+
+        <Border Grid.Row="1" Style="{StaticResource GlassPanel}" Margin="0,8,0,8">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="AVAILABLE LOBBIES" Style="{StaticResource PanelTitle}"/>
+                <ListView Grid.Row="1">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Lobby Name" Width="300"
+                                            DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="Type" Width="160"
+                                            DisplayMemberBinding="{Binding Type}"/>
+                            <GridViewColumn Header="Map" Width="200"
+                                            DisplayMemberBinding="{Binding Map}"/>
+                            <GridViewColumn Header="Players" Width="100"
+                                            DisplayMemberBinding="{Binding Players}"/>
+                        </GridView>
+                    </ListView.View>
+                    <ListView.Items>
+                        <local:LobbyEntry Name="44th Virtual Squadron" Type="Dogfight"    Map="English Channel" Players="4/16"/>
+                        <local:LobbyEntry Name="BOB Historical"         Type="Cooperative" Map="English Channel" Players="8/32"/>
+                        <local:LobbyEntry Name="Desert Campaign Night"  Type="Campaign"    Map="Tobruk"          Players="2/16"/>
+                        <local:LobbyEntry Name="Training Server EU"     Type="Training"    Map="English Channel" Players="1/8"/>
+                    </ListView.Items>
+                </ListView>
+            </Grid>
+        </Border>
+
+        <!-- ── Footer ── -->
+        <Border Grid.Row="2" BorderBrush="{StaticResource BorderBrushMuted}"
+                BorderThickness="1" Background="#88161C1F">
+            <Grid Margin="18,11">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition Width="140"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="← BACK"   Height="38" Click="Back_Click"/>
+                <Button Grid.Column="1" Content="REFRESH" Height="38" Margin="8,0,0,0"/>
+                <Button Grid.Column="2" Content="FILTERS" Height="38" Margin="8,0,0,0"
+                        Click="Filters_Click"/>
+                <Button Grid.Column="4" Content="CREATE"  Height="38" Margin="0,0,8,0"
+                        Click="Create_Click"/>
+                <Button Grid.Column="5" Content="JOIN"    Height="38"
+                        Style="{StaticResource OkButton}"/>
+            </Grid>
+        </Border>
+
+        <!-- ══ FILTERS POPUP OVERLAY ══════════════════════════════════════════
+             Spans all three rows so it can appear centred over the full screen.
+             Closed by clicking the dark backdrop or the ✕ button.             -->
+        <Grid x:Name="FiltersOverlay" Grid.RowSpan="3"
+              Visibility="Collapsed">
+
+            <!-- Semi-transparent backdrop -->
+            <Rectangle Fill="#BB020304"
+                       MouseLeftButtonDown="FiltersBackdrop_Click"/>
+
+            <!-- Popup card -->
+            <Border Background="#1A2228"
+                    BorderBrush="{StaticResource BorderBrushMuted}" BorderThickness="1"
+                    CornerRadius="4" Padding="24"
+                    Width="460" Height="Auto"
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel>
+
+                    <!-- Header -->
+                    <Grid Margin="0,0,0,16">
+                        <TextBlock Text="FILTER LOBBIES" Style="{StaticResource PanelTitle}"/>
+                        <Button Content="✕" HorizontalAlignment="Right"
+                                Width="28" Height="28" FontSize="13"
+                                Click="FiltersClose_Click"/>
+                    </Grid>
+
+                    <!-- Game Mode -->
+                    <Grid Margin="0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Game Mode" Style="{StaticResource LabelText}" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Column="1" SelectedIndex="0">
+                            <ComboBoxItem Content="All Modes"/>
+                            <ComboBoxItem Content="Dogfight"/>
+                            <ComboBoxItem Content="Cooperative"/>
+                            <ComboBoxItem Content="Campaign"/>
+                            <ComboBoxItem Content="Training"/>
+                        </ComboBox>
+                    </Grid>
+
+                    <!-- Map / Theatre -->
+                    <Grid Margin="0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Theatre" Style="{StaticResource LabelText}" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Column="1" SelectedIndex="0">
+                            <ComboBoxItem Content="All Theatres"/>
+                            <ComboBoxItem Content="Battle of Britain"/>
+                            <ComboBoxItem Content="Tobruk / Desert War"/>
+                        </ComboBox>
+                    </Grid>
+
+                    <!-- Players -->
+                    <Grid Margin="0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Has Empty Slots" Style="{StaticResource LabelText}" VerticalAlignment="Center"/>
+                        <CheckBox Grid.Column="1" IsChecked="True" Content="Only show servers with open slots"
+                                  VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <!-- Full servers -->
+                    <Grid Margin="0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Password" Style="{StaticResource LabelText}" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Column="1" SelectedIndex="0">
+                            <ComboBoxItem Content="Any"/>
+                            <ComboBoxItem Content="No password only"/>
+                            <ComboBoxItem Content="Password protected only"/>
+                        </ComboBox>
+                    </Grid>
+
+                    <!-- Actions -->
+                    <Grid Margin="0,20,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="140"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Content="RESET" Height="36" HorizontalAlignment="Left"
+                                Width="100"/>
+                        <Button Grid.Column="1" Content="APPLY FILTERS" Height="36"
+                                Style="{StaticResource OkButton}"
+                                Click="FiltersApply_Click"/>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+        </Grid>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,78 @@
+<UserControl x:Class="PlaneLoadoutWpfTest.Screens.TrainingScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PlaneLoadoutWpfTest">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Theme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="64"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="TRAINING" Style="{StaticResource ScreenTitle}" VerticalAlignment="Center"/>
+
+        <!-- Content: list + description -->
+        <Grid Grid.Row="1" Margin="0,8,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="320"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Style="{StaticResource GlassPanel}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="MISSIONS" Style="{StaticResource PanelTitle}"/>
+                    <ListBox Grid.Row="1" x:Name="MissionList" SelectionChanged="MissionList_SelectionChanged">
+                        <ListBoxItem Content="Introduction to Flight" IsSelected="True"/>
+                        <ListBoxItem Content="Take-off"/>
+                        <ListBoxItem Content="Landing"/>
+                        <ListBoxItem Content="First Solo"/>
+                        <ListBoxItem Content="Spin — Entry and Recovery"/>
+                    </ListBox>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="2" Style="{StaticResource GlassPanel}">
+                <StackPanel>
+                    <TextBlock x:Name="MissionTitle" Text="Introduction to Flight"
+                               Style="{StaticResource PanelTitle}" FontSize="20"/>
+                    <Rectangle Height="1" Fill="{StaticResource BorderBrushMuted}" Margin="0,8,0,12"/>
+                    <TextBlock x:Name="MissionDesc" TextWrapping="Wrap"
+                               Style="{StaticResource BodyText}"
+                               Text="Learn the fundamentals of flight in the Hawker Hurricane. This mission covers the basic controls, attitude, and how to maintain level flight. Suitable for complete beginners."/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- Footer -->
+        <Border Grid.Row="2" BorderBrush="{StaticResource BorderBrushMuted}"
+                BorderThickness="1" Background="#88161C1F">
+            <Grid Margin="18,11">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="180"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="← BACK" Height="38" Click="Back_Click"/>
+                <Button Grid.Column="1" Content="CONFIGURE AIRCRAFT" Height="38" Margin="10,0,0,0"
+                        Click="PlayerPlane_Click"/>
+                <Button Grid.Column="3" Content="START →" Height="38"
+                        Style="{StaticResource OkButton}"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

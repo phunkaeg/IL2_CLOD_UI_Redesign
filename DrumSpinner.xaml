@@ -1,0 +1,149 @@
+<UserControl x:Class="PlaneLoadoutWpfTest.DrumSpinner"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Height="38" MinWidth="74"
+             MouseWheel="OnMouseWheel" Focusable="True"
+             Cursor="Hand">
+
+    <!-- Outer wrapper: step-down | drum | step-up -->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>  <!-- − button -->
+            <ColumnDefinition Width="*"/>     <!-- drum -->
+            <ColumnDefinition Width="Auto"/>  <!-- + button -->
+        </Grid.ColumnDefinitions>
+
+        <!-- ── Step-down button (−) ────────────────────────────────────────── -->
+        <Border Grid.Column="0"
+                CornerRadius="2,0,0,2" BorderThickness="2,2,0,2"
+                ClipToBounds="True">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#7A6840" Offset="0"/>
+                    <GradientStop Color="#2E2414" Offset="0.42"/>
+                    <GradientStop Color="#7A6840" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#030404" Offset="0"/>
+                    <GradientStop Color="#0C0F11" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Button x:Name="BtnDown"
+                    Width="22"
+                    Content="−"
+                    FontFamily="Consolas" FontSize="16" FontWeight="Bold"
+                    Foreground="#C8A050"
+                    BorderThickness="0" Background="Transparent"
+                    Click="BtnDown_Click"
+                    Focusable="False" IsTabStop="False">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="Transparent">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Border>
+
+        <!-- ── Drum display ─────────────────────────────────────────────────── -->
+        <Border Grid.Column="1" CornerRadius="0" ClipToBounds="True" BorderThickness="1,2,1,2">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#7A6840" Offset="0"/>
+                    <GradientStop Color="#2E2414" Offset="0.42"/>
+                    <GradientStop Color="#7A6840" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#030404" Offset="0"/>
+                    <GradientStop Color="#0C0F11" Offset="0.25"/>
+                    <GradientStop Color="#0C0F11" Offset="0.75"/>
+                    <GradientStop Color="#030404" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Grid ClipToBounds="True">
+
+                <!-- Two-slot sliding drum panel -->
+                <StackPanel x:Name="SlidePanel" VerticalAlignment="Top">
+                    <TextBlock x:Name="SlotA" Height="36"
+                               TextAlignment="Center" VerticalAlignment="Center"
+                               FontFamily="Consolas" FontSize="20" FontWeight="Bold"
+                               Foreground="#EBD99A" Padding="0,7,0,0"/>
+                    <TextBlock x:Name="SlotB" Height="36"
+                               TextAlignment="Center" VerticalAlignment="Center"
+                               FontFamily="Consolas" FontSize="20" FontWeight="Bold"
+                               Foreground="#EBD99A" Padding="0,7,0,0"/>
+                </StackPanel>
+
+                <!-- Top shadow (drum-edge depth) -->
+                <Rectangle VerticalAlignment="Top" Height="13" IsHitTestVisible="False">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#E0020304" Offset="0"/>
+                            <GradientStop Color="#00020304" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <!-- Bottom shadow -->
+                <Rectangle VerticalAlignment="Bottom" Height="13" IsHitTestVisible="False">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#00020304" Offset="0"/>
+                            <GradientStop Color="#E0020304" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <!-- Top edge hairline -->
+                <Rectangle Height="1" VerticalAlignment="Top" Margin="3,2,3,0"
+                           Fill="#60C8A050" IsHitTestVisible="False"/>
+
+                <!-- Bottom edge hairline -->
+                <Rectangle Height="1" VerticalAlignment="Bottom" Margin="3,0,3,2"
+                           Fill="#60C8A050" IsHitTestVisible="False"/>
+            </Grid>
+        </Border>
+
+        <!-- ── Step-up button (+) ────────────────────────────────────────────── -->
+        <Border Grid.Column="2"
+                CornerRadius="0,2,2,0" BorderThickness="0,2,2,2"
+                ClipToBounds="True">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#7A6840" Offset="0"/>
+                    <GradientStop Color="#2E2414" Offset="0.42"/>
+                    <GradientStop Color="#7A6840" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#0C0F11" Offset="0"/>
+                    <GradientStop Color="#030404" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Button x:Name="BtnUp"
+                    Width="22"
+                    Content="+"
+                    FontFamily="Consolas" FontSize="16" FontWeight="Bold"
+                    Foreground="#C8A050"
+                    BorderThickness="0" Background="Transparent"
+                    Click="BtnUp_Click"
+                    Focusable="False" IsTabStop="False">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="Transparent">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Border>
+
+    </Grid>
+</UserControl>

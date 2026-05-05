@@ -1,0 +1,215 @@
+<UserControl x:Class="PlaneLoadoutWpfTest.Screens.TelemetryScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Theme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="64"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="TELEMETRY"
+                   Style="{StaticResource ScreenTitle}" VerticalAlignment="Center"/>
+
+        <!-- Two-panel layout: Crash Reporting | Motion Platform -->
+        <Grid Grid.Row="1" Margin="0,8,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- ═══ LEFT — Crash / session telemetry ════════════════════ -->
+            <Border Style="{StaticResource GlassPanel}">
+                <StackPanel>
+                    <TextBlock Text="CRASH REPORTING" Style="{StaticResource PanelTitle}"/>
+
+                    <TextBlock TextWrapping="Wrap" FontSize="14"
+                               Foreground="{StaticResource TextMainBrush}"
+                               LineHeight="22" Margin="0,0,0,14">
+                        To help improve IL-2 Sturmovik: Cliffs of Dover, we would like
+                        to collect anonymous crash reports and basic performance telemetry
+                        from your game sessions. This data includes only technical
+                        information (stack traces, hardware configuration, and game state
+                        at the time of failure) and never includes personal information,
+                        replays, or chat content.
+                    </TextBlock>
+
+                    <TextBlock TextWrapping="Wrap" FontSize="14"
+                               Foreground="{StaticResource TextDimBrush}"
+                               LineHeight="22" Margin="0,0,0,16">
+                        Participation is entirely voluntary. You may change your
+                        preference at any time. Submitted reports are used solely by
+                        the development team and are not shared with third parties.
+                    </TextBlock>
+
+                    <TextBlock Text="Do you consent to anonymous crash and telemetry reporting?"
+                               FontSize="14" Foreground="{StaticResource TextGoldBrush}"
+                               TextWrapping="Wrap" Margin="0,0,0,16"/>
+
+                    <!-- Status indicator -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                        <TextBlock Text="Current setting:" Style="{StaticResource LabelText}"
+                                   Margin="0,0,8,0"/>
+                        <TextBlock x:Name="CurrentSettingLabel" Text="NOT SET"
+                                   FontSize="13" FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextDimBrush}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="YES — ENABLE"  Width="180" Height="40"
+                                Style="{StaticResource OkButton}"
+                                Click="Yes_Click" Margin="0,0,10,0"/>
+                        <Button Content="NO — DECLINE"  Width="150" Height="40"
+                                Style="{StaticResource DangerButton}"
+                                Click="No_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- ═══ RIGHT — Motion Platform telemetry ═══════════════════ -->
+            <Border Grid.Column="2" Style="{StaticResource GlassPanel}">
+                <StackPanel>
+                    <TextBlock Text="MOTION PLATFORM TELEMETRY"
+                               Style="{StaticResource PanelTitle}"/>
+
+                    <TextBlock TextWrapping="Wrap" FontSize="14"
+                               Foreground="{StaticResource TextMainBrush}"
+                               LineHeight="22" Margin="0,0,0,14">
+                        Streams real-time 6-DOF aircraft motion data (heave, pitch, roll,
+                        yaw, sway, surge) via UDP to a motion platform controller.
+                        Compatible with DOF Reality, SimXperience, CXC Motion, and any
+                        platform that accepts raw telemetry UDP packets.
+                    </TextBlock>
+
+                    <!-- Status indicator -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,14">
+                        <TextBlock Text="UDP stream:" Style="{StaticResource LabelText}"
+                                   Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="MotionStatusLabel" Text="DISABLED"
+                                   FontSize="13" FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextDimBrush}"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                        <Button Content="ENABLE"  Width="110" Height="36"
+                                Style="{StaticResource OkButton}"
+                                Click="MotionEnable_Click" Margin="0,0,10,0"/>
+                        <Button Content="DISABLE" Width="110" Height="36"
+                                Style="{StaticResource DangerButton}"
+                                Click="MotionDisable_Click"/>
+                    </StackPanel>
+
+                    <!-- UDP settings (enabled when motion is on) -->
+                    <Border x:Name="MotionSettingsPanel"
+                            BorderBrush="{StaticResource BorderBrushMuted}"
+                            BorderThickness="1" Background="#1A101516"
+                            Padding="14,12" IsEnabled="False" Opacity="0.45">
+                        <StackPanel>
+
+                            <!-- Target IP -->
+                            <Grid Margin="0,0,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="120"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Target IP:" Style="{StaticResource LabelText}"
+                                           VerticalAlignment="Center"/>
+                                <TextBox x:Name="MotionIpBox" Grid.Column="1"
+                                         Text="127.0.0.1"
+                                         ToolTip="IP address of the motion platform controller. Use 127.0.0.1 for a local controller."/>
+                            </Grid>
+
+                            <!-- UDP port -->
+                            <Grid Margin="0,0,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="120"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="UDP Port:" Style="{StaticResource LabelText}"
+                                           VerticalAlignment="Center"/>
+                                <TextBox x:Name="MotionPortBox" Grid.Column="1"
+                                         Text="4123"
+                                         ToolTip="Default: 4123 (SimTools). Check your platform software for the correct port."/>
+                            </Grid>
+
+                            <!-- Update rate -->
+                            <Grid Margin="0,0,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="120"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Update rate:" Style="{StaticResource LabelText}"
+                                           VerticalAlignment="Center"/>
+                                <ComboBox x:Name="MotionRateCombo" Grid.Column="1"
+                                          SelectedIndex="1"
+                                          ToolTip="Packets per second sent to the motion platform.">
+                                    <ComboBoxItem Content="25 Hz"/>
+                                    <ComboBoxItem Content="50 Hz"/>
+                                    <ComboBoxItem Content="60 Hz"/>
+                                    <ComboBoxItem Content="100 Hz"/>
+                                    <ComboBoxItem Content="120 Hz"/>
+                                    <ComboBoxItem Content="200 Hz"/>
+                                </ComboBox>
+                            </Grid>
+
+                            <!-- Output format -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="120"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Format:" Style="{StaticResource LabelText}"
+                                           VerticalAlignment="Center"/>
+                                <ComboBox x:Name="MotionFormatCombo" Grid.Column="1"
+                                          SelectedIndex="0"
+                                          ToolTip="UDP packet format. 'Raw 6-DOF floats' is compatible with most platforms.">
+                                    <ComboBoxItem Content="Raw 6-DOF floats (IEEE 754)"/>
+                                    <ComboBoxItem Content="SimTools v2 / DOF Reality"/>
+                                    <ComboBoxItem Content="CXC Motion Protocol"/>
+                                </ComboBox>
+                            </Grid>
+
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Connection test feedback -->
+                    <TextBlock x:Name="MotionTestLabel" Text=""
+                               FontSize="12" Foreground="{StaticResource TextDimBrush}"
+                               Margin="0,10,0,0" TextWrapping="Wrap"/>
+
+                    <Button Content="TEST CONNECTION" Height="34" Margin="0,10,0,0"
+                            HorizontalAlignment="Left" Width="160"
+                            x:Name="MotionTestBtn" IsEnabled="False"
+                            Click="MotionTest_Click"/>
+
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- ── Footer ────────────────────────────────────────────────────── -->
+        <Border Grid.Row="2" BorderBrush="{StaticResource BorderBrushMuted}"
+                BorderThickness="1" Background="#88161C1F">
+            <Grid Margin="18,11">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="180"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="← BACK" Height="38" Click="Back_Click"/>
+                <Button Grid.Column="2" Content="APPLY" Height="38"
+                        Style="{StaticResource OkButton}" Click="Apply_Click"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

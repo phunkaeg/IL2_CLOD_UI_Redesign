@@ -1,0 +1,233 @@
+<UserControl x:Class="PlaneLoadoutWpfTest.Screens.SingleMissionScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PlaneLoadoutWpfTest"
+             Loaded="UserControl_Loaded"
+             Unloaded="UserControl_Unloaded">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Theme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="BoolVis"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="64"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="SINGLE MISSION" Style="{StaticResource ScreenTitle}" VerticalAlignment="Center"/>
+
+        <Grid Grid.Row="1" Margin="0,8,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- ═══ LEFT — mission list ════════════════════════════════════════ -->
+            <Border Style="{StaticResource GlassPanel}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="MISSIONS" Style="{StaticResource PanelTitle}"/>
+
+                    <!-- Theatre filter tabs -->
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,4,0,8">
+                        <Button x:Name="TabAll"   Content="All"    Height="26" Padding="10,0"
+                                FontSize="11" Click="Tab_Click" Tag="all"/>
+                        <Button x:Name="TabBoB"   Content="BoB"    Height="26" Padding="10,0"
+                                FontSize="11" Click="Tab_Click" Tag="bob"   Margin="4,0,0,0"/>
+                        <Button x:Name="TabTobruk" Content="Tobruk" Height="26" Padding="10,0"
+                                FontSize="11" Click="Tab_Click" Tag="tobruk" Margin="4,0,0,0"/>
+                    </StackPanel>
+
+                    <!-- Grouped list of scanned missions -->
+                    <ListBox x:Name="MissionList" Grid.Row="2"
+                             SelectionChanged="MissionList_SelectionChanged"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                             ScrollViewer.CanContentScroll="False">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="2,3">
+                                    <TextBlock Text="{Binding Title}"
+                                               FontFamily="Segoe UI" FontSize="12"
+                                               Foreground="#EBD99A" TextWrapping="Wrap"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0,1,0,0">
+                                        <TextBlock Text="{Binding Map}" FontSize="10"
+                                                   Foreground="#70F2E7D7"/>
+                                        <TextBlock Text=" · " FontSize="10" Foreground="#40F2E7D7"/>
+                                        <TextBlock Text="{Binding TimeHHMM}" FontSize="10"
+                                                   Foreground="#70F2E7D7"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <!-- Placeholder shown when catalog is empty -->
+                    <TextBlock x:Name="EmptyHint" Grid.Row="2"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                               TextWrapping="Wrap" TextAlignment="Center"
+                               Margin="12" Opacity="0.45"
+                               Style="{StaticResource BodyText}"
+                               Text="Scanning configured Single Mission folders..."/>
+                </Grid>
+            </Border>
+
+            <!-- ═══ RIGHT — mission detail ════════════════════════════════════ -->
+            <Border x:Name="DetailPanel" Grid.Column="2" Style="{StaticResource GlassPanel}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="250"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- ── Info bar ── -->
+                    <Grid Grid.Row="0" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Map:" Style="{StaticResource LabelText}"/>
+                        <TextBlock x:Name="DetailMap" Grid.Column="1"
+                                   Style="{StaticResource BodyText}" Margin="4,0,16,0"/>
+                        <TextBlock Text="Time:" Grid.Column="2" Style="{StaticResource LabelText}"/>
+                        <TextBlock x:Name="DetailTime" Grid.Column="3"
+                                   Style="{StaticResource BodyText}" Margin="4,0,16,0"/>
+                        <TextBlock Text="Theatre:" Grid.Column="4" Style="{StaticResource LabelText}"/>
+                        <TextBlock x:Name="DetailTheatre" Grid.Column="5"
+                                   Style="{StaticResource BodyText}" Margin="4,0,0,0"/>
+                    </Grid>
+
+                    <!-- ── Thumbnail / mission image ── -->
+                    <Border Grid.Row="1" BorderBrush="{StaticResource BorderBrushMuted}"
+                            BorderThickness="1" Background="#20101516" Margin="0,0,0,10"
+                            ClipToBounds="True">
+                        <Grid>
+                            <Image x:Name="DetailImage" Stretch="UniformToFill"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="NoImageHint"
+                                       Text="NO MISSION IMAGE AVAILABLE"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       Style="{StaticResource LabelText}" Opacity="0.3"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- ── Mission title + briefing/details + map ── -->
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="12"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel Margin="0,0,8,0">
+                                <TextBlock x:Name="DetailTitle"
+                                           FontSize="15" FontWeight="SemiBold"
+                                           Foreground="{StaticResource TextGoldBrush}"
+                                           TextWrapping="Wrap" Margin="0,0,0,8"/>
+                                <TextBlock x:Name="DetailDescription"
+                                           Style="{StaticResource BodyText}"
+                                           TextWrapping="Wrap" Opacity="0.84"
+                                           Margin="0,0,0,14"/>
+
+                                <Rectangle Height="1" Fill="{StaticResource BorderBrushMuted}" Margin="0,0,0,10"/>
+
+                                <Grid Margin="0,0,0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="90"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Category:" Style="{StaticResource LabelText}" Margin="0,0,6,0"/>
+                                    <TextBlock x:Name="DetailCategory" Grid.Column="1" Style="{StaticResource BodyText}"/>
+                                </Grid>
+                                <Grid Margin="0,0,0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="90"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Campaign:" Style="{StaticResource LabelText}" Margin="0,0,6,0"/>
+                                    <TextBlock x:Name="DetailCampaign" Grid.Column="1" Style="{StaticResource BodyText}"
+                                               FontStyle="Italic" TextWrapping="Wrap"/>
+                                </Grid>
+                                <Grid Margin="0,0,0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="90"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Mission:" Style="{StaticResource LabelText}" Margin="0,0,6,0"/>
+                                    <TextBlock x:Name="DetailMissionFile" Grid.Column="1" Style="{StaticResource BodyText}"
+                                               TextWrapping="Wrap" Opacity="0.72"/>
+                                </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="90"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Briefing:" Style="{StaticResource LabelText}" Margin="0,0,6,0"/>
+                                    <TextBlock x:Name="DetailBriefingFile" Grid.Column="1" Style="{StaticResource BodyText}"
+                                               TextWrapping="Wrap" Opacity="0.72"/>
+                                </Grid>
+                            </StackPanel>
+                        </ScrollViewer>
+
+                        <Border Grid.Column="2" BorderBrush="{StaticResource BorderBrushMuted}"
+                                BorderThickness="1" Background="#20101516">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="NAVIGATION MAP" Style="{StaticResource PanelTitle}" Margin="10,8,10,6"/>
+                                <Canvas x:Name="MissionMapViewport" Grid.Row="1" ClipToBounds="True"
+                                        SizeChanged="MissionMapViewport_SizeChanged"
+                                        Background="#11000000">
+                                    <Image x:Name="MissionMapImage" Stretch="Fill"/>
+                                    <Canvas x:Name="MissionRouteCanvas"/>
+                                </Canvas>
+                                <TextBlock x:Name="MissionMapHint" Grid.Row="2"
+                                           Style="{StaticResource LabelText}" Margin="10,6,10,8"
+                                           TextWrapping="Wrap"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- ── Footer ── -->
+        <Border Grid.Row="2" BorderBrush="{StaticResource BorderBrushMuted}"
+                BorderThickness="1" Background="#88161C1F">
+            <Grid Margin="18,11">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="180"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="← BACK" Height="38" Click="Back_Click"/>
+                <Button Grid.Column="1" Content="CUSTOM" Height="38" Margin="10,0,0,0"/>
+                <Button Grid.Column="3" Content="FLY →" Height="38"
+                        Style="{StaticResource OkButton}"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

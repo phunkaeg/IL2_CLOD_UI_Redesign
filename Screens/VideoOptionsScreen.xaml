@@ -1,0 +1,240 @@
+<UserControl x:Class="PlaneLoadoutWpfTest.Screens.VideoOptionsScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PlaneLoadoutWpfTest">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Theme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="64"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="VIDEO OPTIONS" Style="{StaticResource ScreenTitle}" VerticalAlignment="Center"/>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,8,0,8">
+            <StackPanel>
+
+                <!-- ── Row 1: DISPLAY + ANTI-ALIASING side by side ── -->
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="12"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- DISPLAY -->
+                    <Border Style="{StaticResource GlassPanel}">
+                        <StackPanel>
+                            <TextBlock Text="DISPLAY" Style="{StaticResource PanelTitle}"/>
+
+                            <Grid Margin="0,4">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="160"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                <TextBlock Text="Resolution" Style="{StaticResource LabelText}"/>
+                                <ComboBox Grid.Column="1" SelectedIndex="2">
+                                    <ComboBoxItem Content="1366 × 768"/>
+                                    <ComboBoxItem Content="1600 × 900"/>
+                                    <ComboBoxItem Content="1920 × 1080"/>
+                                    <ComboBoxItem Content="2560 × 1440"/>
+                                </ComboBox>
+                            </Grid>
+
+                            <Grid Margin="0,4">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="160"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                <TextBlock Text="Full Screen" Style="{StaticResource LabelText}"/>
+                                <CheckBox Grid.Column="1" IsChecked="True" VerticalAlignment="Center"/>
+                            </Grid>
+
+                            <Grid Margin="0,4">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="160"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                <TextBlock Text="VR" Style="{StaticResource LabelText}"/>
+                                <CheckBox Grid.Column="1" IsChecked="False" VerticalAlignment="Center"/>
+                            </Grid>
+
+                            <Grid Margin="0,4">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="160"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                <TextBlock Text="Detail Level" Style="{StaticResource LabelText}"/>
+                                <ComboBox Grid.Column="1" SelectedIndex="2">
+                                    <ComboBoxItem Content="Low"/>
+                                    <ComboBoxItem Content="Medium"/>
+                                    <ComboBoxItem Content="High"/>
+                                    <ComboBoxItem Content="Ultra"/>
+                                </ComboBox>
+                            </Grid>
+
+                            <Grid Margin="0,4">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="160"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                <TextBlock Text="Gamma" Style="{StaticResource LabelText}"/>
+                                <ComboBox Grid.Column="1" SelectedIndex="1">
+                                    <ComboBoxItem Content="Dark"/>
+                                    <ComboBoxItem Content="Normal"/>
+                                    <ComboBoxItem Content="Bright"/>
+                                </ComboBox>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ANTI-ALIASING -->
+                    <Border Grid.Column="2" Style="{StaticResource GlassPanel}">
+                        <StackPanel>
+                            <TextBlock Text="ANTI-ALIASING" Style="{StaticResource PanelTitle}"/>
+
+                            <Grid Margin="0,4">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="160"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                <TextBlock Text="AA Mode" Style="{StaticResource LabelText}"/>
+                                <ComboBox Grid.Column="1" x:Name="AaModeCombo" SelectedIndex="1"
+                                          SelectionChanged="AaMode_SelectionChanged">
+                                    <ComboBoxItem Content="Off"/>
+                                    <ComboBoxItem Content="FXAA"/>
+                                    <ComboBoxItem Content="SMAA"/>
+                                </ComboBox>
+                            </Grid>
+
+                            <!-- FXAA options -->
+                            <StackPanel x:Name="FxaaPanel">
+                                <Grid Margin="0,4">
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="160"/><ColumnDefinition Width="*"/><ColumnDefinition Width="44"/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="Quality Level" Style="{StaticResource LabelText}"/>
+                                    <Slider Grid.Column="1" x:Name="FxaaQualitySlider" Minimum="10" Maximum="39" Value="12"
+                                            ValueChanged="FxaaQuality_ValueChanged" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="2" x:Name="FxaaQualityLabel" Text="12"
+                                               Style="{StaticResource BodyText}" HorizontalAlignment="Right"/>
+                                </Grid>
+                            </StackPanel>
+
+                            <!-- SMAA options -->
+                            <StackPanel x:Name="SmaaPanel" Visibility="Collapsed">
+                                <Grid Margin="0,4">
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="160"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="Edge Detection" Style="{StaticResource LabelText}"/>
+                                    <ComboBox Grid.Column="1" SelectedIndex="0">
+                                        <ComboBoxItem Content="Luma"/>
+                                        <ComboBoxItem Content="Colour"/>
+                                    </ComboBox>
+                                </Grid>
+                                <Grid Margin="0,4">
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="160"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="Preset" Style="{StaticResource LabelText}"/>
+                                    <ComboBox Grid.Column="1" SelectedIndex="2">
+                                        <ComboBoxItem Content="Low"/>
+                                        <ComboBoxItem Content="Medium"/>
+                                        <ComboBoxItem Content="High"/>
+                                        <ComboBoxItem Content="Ultra"/>
+                                    </ComboBox>
+                                </Grid>
+                            </StackPanel>
+
+                            <Grid Margin="0,4">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="160"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                <TextBlock Text="Anti-Epilepsy Filter" Style="{StaticResource LabelText}"/>
+                                <CheckBox Grid.Column="1" IsChecked="False" VerticalAlignment="Center"/>
+                            </Grid>
+
+                            <Grid Margin="0,4">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="160"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                <TextBlock Text="SSAO" Style="{StaticResource LabelText}"/>
+                                <CheckBox Grid.Column="1" IsChecked="True" VerticalAlignment="Center"/>
+                            </Grid>
+
+                            <Grid Margin="0,4">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="160"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                <TextBlock Text="VSync" Style="{StaticResource LabelText}"/>
+                                <CheckBox Grid.Column="1" IsChecked="True" VerticalAlignment="Center"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- ── Show Advanced toggle ── -->
+                <CheckBox x:Name="ShowAdvancedCheck" Content="Show Advanced Options"
+                          Margin="0,0,0,10"
+                          Checked="ShowAdvanced_Checked" Unchecked="ShowAdvanced_Unchecked"/>
+
+                <!-- ── ADVANCED (hidden by default) ── -->
+                <Border x:Name="AdvancedPanel" Style="{StaticResource GlassPanel}" Visibility="Collapsed">
+                    <StackPanel>
+                        <TextBlock Text="ADVANCED" Style="{StaticResource PanelTitle}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <Grid Margin="0,4"><Grid.ColumnDefinitions><ColumnDefinition Width="150"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="Aircraft Textures" Style="{StaticResource LabelText}"/>
+                                    <ComboBox Grid.Column="1" SelectedIndex="2"><ComboBoxItem Content="Low"/><ComboBoxItem Content="Medium"/><ComboBoxItem Content="High"/><ComboBoxItem Content="Ultra"/></ComboBox>
+                                </Grid>
+                                <Grid Margin="0,4"><Grid.ColumnDefinitions><ColumnDefinition Width="150"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="Damage Decals" Style="{StaticResource LabelText}"/>
+                                    <ComboBox Grid.Column="1" SelectedIndex="2"><ComboBoxItem Content="Low"/><ComboBoxItem Content="Medium"/><ComboBoxItem Content="High"/><ComboBoxItem Content="Ultra"/></ComboBox>
+                                </Grid>
+                                <Grid Margin="0,4"><Grid.ColumnDefinitions><ColumnDefinition Width="150"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="Visual Effects" Style="{StaticResource LabelText}"/>
+                                    <ComboBox Grid.Column="1" SelectedIndex="2"><ComboBoxItem Content="Low"/><ComboBoxItem Content="Medium"/><ComboBoxItem Content="High"/><ComboBoxItem Content="Ultra"/></ComboBox>
+                                </Grid>
+                                <Grid Margin="0,4"><Grid.ColumnDefinitions><ColumnDefinition Width="150"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="Texture Quality" Style="{StaticResource LabelText}"/>
+                                    <ComboBox Grid.Column="1" SelectedIndex="2"><ComboBoxItem Content="Low"/><ComboBoxItem Content="Medium"/><ComboBoxItem Content="High"/><ComboBoxItem Content="Ultra"/></ComboBox>
+                                </Grid>
+                                <Grid Margin="0,4"><Grid.ColumnDefinitions><ColumnDefinition Width="150"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="Land Shading" Style="{StaticResource LabelText}"/>
+                                    <ComboBox Grid.Column="1" SelectedIndex="2"><ComboBoxItem Content="Low"/><ComboBoxItem Content="Medium"/><ComboBoxItem Content="High"/><ComboBoxItem Content="Ultra"/></ComboBox>
+                                </Grid>
+                                <CheckBox Content="Grass"              IsChecked="True"  Margin="0,6"/>
+                                <CheckBox Content="Roads"              IsChecked="True"  Margin="0,4"/>
+                                <CheckBox Content="Far Static Shadows" IsChecked="False" Margin="0,4"/>
+                                <CheckBox Content="Distant Clouds"     IsChecked="True"  Margin="0,4"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <Grid Margin="0,4"><Grid.ColumnDefinitions><ColumnDefinition Width="150"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="Land Detail" Style="{StaticResource LabelText}"/>
+                                    <ComboBox Grid.Column="1" SelectedIndex="2"><ComboBoxItem Content="Low"/><ComboBoxItem Content="Medium"/><ComboBoxItem Content="High"/><ComboBoxItem Content="Ultra"/></ComboBox>
+                                </Grid>
+                                <Grid Margin="0,4"><Grid.ColumnDefinitions><ColumnDefinition Width="150"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="Forest" Style="{StaticResource LabelText}"/>
+                                    <ComboBox Grid.Column="1" SelectedIndex="2"><ComboBoxItem Content="Low"/><ComboBoxItem Content="Medium"/><ComboBoxItem Content="High"/><ComboBoxItem Content="Ultra"/></ComboBox>
+                                </Grid>
+                                <Grid Margin="0,4"><Grid.ColumnDefinitions><ColumnDefinition Width="150"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="Building Detail" Style="{StaticResource LabelText}"/>
+                                    <ComboBox Grid.Column="1" SelectedIndex="2"><ComboBoxItem Content="Low"/><ComboBoxItem Content="Medium"/><ComboBoxItem Content="High"/><ComboBoxItem Content="Ultra"/></ComboBox>
+                                </Grid>
+                                <Grid Margin="0,4"><Grid.ColumnDefinitions><ColumnDefinition Width="150"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="Visibility Distance" Style="{StaticResource LabelText}"/>
+                                    <ComboBox Grid.Column="1" SelectedIndex="2"><ComboBoxItem Content="Low"/><ComboBoxItem Content="Medium"/><ComboBoxItem Content="High"/><ComboBoxItem Content="Ultra"/></ComboBox>
+                                </Grid>
+                                <Grid Margin="0,4"><Grid.ColumnDefinitions><ColumnDefinition Width="150"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="Terrain Textures" Style="{StaticResource LabelText}"/>
+                                    <ComboBox Grid.Column="1" SelectedIndex="2"><ComboBoxItem Content="Low"/><ComboBoxItem Content="Medium"/><ComboBoxItem Content="High"/><ComboBoxItem Content="Ultra"/></ComboBox>
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Footer -->
+        <Border Grid.Row="2" BorderBrush="{StaticResource BorderBrushMuted}"
+                BorderThickness="1" Background="#88161C1F">
+            <Grid Margin="18,11">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="180"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="← CANCEL" Height="38" Click="Cancel_Click"/>
+                <Button Grid.Column="2" Content="OK" Height="38"
+                        Style="{StaticResource OkButton}" Click="Ok_Click"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

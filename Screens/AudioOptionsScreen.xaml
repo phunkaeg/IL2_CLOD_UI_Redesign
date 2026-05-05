@@ -1,0 +1,190 @@
+<UserControl x:Class="PlaneLoadoutWpfTest.Screens.AudioOptionsScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PlaneLoadoutWpfTest">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Theme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="64"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="AUDIO OPTIONS" Style="{StaticResource ScreenTitle}" VerticalAlignment="Center"/>
+
+        <!-- Two panels side-by-side, full width -->
+        <Grid Grid.Row="1" Margin="0,8,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left: Volume sliders -->
+            <Border Style="{StaticResource GlassPanel}" VerticalAlignment="Top">
+                <StackPanel>
+                    <TextBlock Text="VOLUME" Style="{StaticResource PanelTitle}"/>
+
+                    <!-- Helper row template as nested Grid instances -->
+                    <Grid Margin="0,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="22"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="46"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Master Volume" Style="{StaticResource LabelText}" VerticalAlignment="Center"/>
+                        <CheckBox  Grid.Column="1" IsChecked="True" VerticalAlignment="Center"/>
+                        <Slider    Grid.Column="2" x:Name="MasterSlider" Minimum="0" Maximum="100" Value="80"
+                                   VerticalAlignment="Center" ValueChanged="MasterSlider_ValueChanged"/>
+                        <TextBlock Grid.Column="3" x:Name="MasterLabel" Text="80%"
+                                   Style="{StaticResource BodyText}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <Grid Margin="0,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="22"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="46"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Effects Volume" Style="{StaticResource LabelText}" VerticalAlignment="Center"/>
+                        <Slider    Grid.Column="2" x:Name="EffectsSlider" Minimum="0" Maximum="100" Value="80"
+                                   VerticalAlignment="Center" ValueChanged="EffectsSlider_ValueChanged"/>
+                        <TextBlock Grid.Column="3" x:Name="EffectsLabel" Text="80%"
+                                   Style="{StaticResource BodyText}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <Grid Margin="0,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="22"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="46"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Music" Style="{StaticResource LabelText}" VerticalAlignment="Center"/>
+                        <CheckBox  Grid.Column="1" IsChecked="True" VerticalAlignment="Center"/>
+                        <Slider    Grid.Column="2" x:Name="MusicSlider" Minimum="0" Maximum="100" Value="60"
+                                   VerticalAlignment="Center" ValueChanged="MusicSlider_ValueChanged"/>
+                        <TextBlock Grid.Column="3" x:Name="MusicLabel" Text="60%"
+                                   Style="{StaticResource BodyText}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <Grid Margin="0,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="22"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="46"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Voice / Radio" Style="{StaticResource LabelText}" VerticalAlignment="Center"/>
+                        <CheckBox  Grid.Column="1" IsChecked="True" VerticalAlignment="Center"/>
+                        <Slider    Grid.Column="2" x:Name="VoiceSlider" Minimum="0" Maximum="100" Value="80"
+                                   VerticalAlignment="Center" ValueChanged="VoiceSlider_ValueChanged"/>
+                        <TextBlock Grid.Column="3" x:Name="VoiceLabel" Text="80%"
+                                   Style="{StaticResource BodyText}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <Grid Margin="0,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="22"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="46"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Cockpit Sounds" Style="{StaticResource LabelText}" VerticalAlignment="Center"/>
+                        <Slider    Grid.Column="2" x:Name="CockpitSlider" Minimum="0" Maximum="100" Value="100"
+                                   VerticalAlignment="Center" ValueChanged="CockpitSlider_ValueChanged"/>
+                        <TextBlock Grid.Column="3" x:Name="CockpitLabel" Text="100%"
+                                   Style="{StaticResource BodyText}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <Grid Margin="0,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="22"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="46"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Wind / Airframe" Style="{StaticResource LabelText}" VerticalAlignment="Center"/>
+                        <Slider    Grid.Column="2" x:Name="WindSlider" Minimum="0" Maximum="100" Value="70"
+                                   VerticalAlignment="Center" ValueChanged="WindSlider_ValueChanged"/>
+                        <TextBlock Grid.Column="3" x:Name="WindLabel" Text="70%"
+                                   Style="{StaticResource BodyText}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Right: Audio settings -->
+            <Border Grid.Column="2" Style="{StaticResource GlassPanel}" VerticalAlignment="Top">
+                <StackPanel>
+                    <TextBlock Text="SETTINGS" Style="{StaticResource PanelTitle}"/>
+
+                    <Grid Margin="0,6">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="160"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                        <TextBlock Text="Audio Device" Style="{StaticResource LabelText}"/>
+                        <ComboBox Grid.Column="1" SelectedIndex="0">
+                            <ComboBoxItem Content="Default System Device"/>
+                            <ComboBoxItem Content="Headphones"/>
+                            <ComboBoxItem Content="Speakers"/>
+                        </ComboBox>
+                    </Grid>
+
+                    <Grid Margin="0,6">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="160"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                        <TextBlock Text="Sample Rate" Style="{StaticResource LabelText}"/>
+                        <ComboBox Grid.Column="1" SelectedIndex="1">
+                            <ComboBoxItem Content="22 050 Hz"/>
+                            <ComboBoxItem Content="44 100 Hz"/>
+                            <ComboBoxItem Content="48 000 Hz"/>
+                        </ComboBox>
+                    </Grid>
+
+                    <Grid Margin="0,6">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="160"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                        <TextBlock Text="Speaker Config" Style="{StaticResource LabelText}"/>
+                        <ComboBox Grid.Column="1" SelectedIndex="0">
+                            <ComboBoxItem Content="Stereo"/>
+                            <ComboBoxItem Content="5.1 Surround"/>
+                            <ComboBoxItem Content="7.1 Surround"/>
+                            <ComboBoxItem Content="Headphone (HRTF)"/>
+                        </ComboBox>
+                    </Grid>
+
+                    <Rectangle Height="1" Fill="{StaticResource BorderBrushMuted}" Margin="0,10,0,10"/>
+                    <TextBlock Text="SUBSYSTEMS" Style="{StaticResource PanelTitle}"/>
+
+                    <CheckBox Content="Engine Audio"      IsChecked="True"  Margin="0,4"/>
+                    <CheckBox Content="Weapons Audio"     IsChecked="True"  Margin="0,4"/>
+                    <CheckBox Content="Radio Chatter"     IsChecked="True"  Margin="0,4"/>
+                    <CheckBox Content="Ambient Sounds"    IsChecked="True"  Margin="0,4"/>
+                    <CheckBox Content="Ground Crew Voice" IsChecked="False" Margin="0,4"/>
+                    <CheckBox Content="Wingman Speech"    IsChecked="True"  Margin="0,4"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- Footer -->
+        <Border Grid.Row="2" BorderBrush="{StaticResource BorderBrushMuted}"
+                BorderThickness="1" Background="#88161C1F">
+            <Grid Margin="18,11">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="180"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="← BACK" Height="38" Click="Back_Click"/>
+                <Button Grid.Column="2" Content="APPLY" Height="38"
+                        Style="{StaticResource OkButton}" Click="Apply_Click"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

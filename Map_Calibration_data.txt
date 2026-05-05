@@ -1,0 +1,79 @@
+map calibration:
+
+Hawkinge: 2454, 1065
+
+Manston: 2588, 803
+
+Biggin Hill: 1675, 821
+
+North Weald: 1767, 382
+
+Hornchurch: 1802,581
+
+Tangmere: 1153, 1333
+
+Kenley: 1593,843
+
+Croydon: 1575, 789
+
+Ford: 1237, 1372
+
+Dover / Dover Harbour: 2567. 1056
+
+Folkestone (town): 2474, 1100
+
+Calais-Marck: 3015, 1234
+
+Boulogne (town): 2773, 1492
+
+Lympne: 2360, 1101
+
+Canterbury (town): 2399, 875
+
+Ramsgate: 2631, 787
+
+Southend (town):  2139,578
+
+London centre: 1598, 611
+
+Dunkirk: 3287, 1123
+
+Cap Gris-Nez: 2756, 1332
+
+Le Havre Octeville: 1688, 2818
+
+Portsmouth: 913, 1357
+
+Salisbury: 403, 1002
+
+Beachy Head: 1817, 1483
+
+
+Tobruk:
+
+Tobruk (town): 4133, 5101
+
+Tobruk No5 (airfield): 3894, 5127
+
+Tobruk No3 (LG146) : 4062, 5217
+
+Sidi Rezegh (LG153) : 4805, 6111
+
+Derna (town): 730, 3035
+
+Gazala no1 (LG149): 2426, 4796
+
+Halfaya: 7258, 6989
+
+Sollum: 7181, 6629
+
+Sidi Barrani (town): 9047,6513
+
+el Adem No1 (lg144): 3880, 5770
+
+Akramah: 3184, 5744
+
+Bi'r al Hakim: 2643, 6235
+
+Gambut: 5479, 5671
+

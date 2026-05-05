@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>CliffsOfDoverUiOverhaul</AssemblyName>
+    <DefaultItemExcludes>$(DefaultItemExcludes);obj\**;bin\**;publish\**</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\*.png" />
+    <Resource Include="Assets\*.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Map_Calibration_data.txt" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+    <Content Include="Assets\3d\**\*" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="HelixToolkit.Wpf">
+      <HintPath>$(NuGetPackageRoot)helixtoolkit.wpf\3.1.2\lib\net8.0-windows7.0\HelixToolkit.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="HelixToolkit">
+      <HintPath>$(NuGetPackageRoot)helixtoolkit\3.1.2\lib\net8.0\HelixToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="HelixToolkit.Geometry">
+      <HintPath>$(NuGetPackageRoot)helixtoolkit.geometry\3.1.2\lib\net8.0\HelixToolkit.Geometry.dll</HintPath>
+    </Reference>
+    <Reference Include="CommunityToolkit.Common">
+      <HintPath>$(NuGetPackageRoot)communitytoolkit.common\8.3.2\lib\net8.0\CommunityToolkit.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="CommunityToolkit.Diagnostics">
+      <HintPath>$(NuGetPackageRoot)communitytoolkit.diagnostics\8.3.2\lib\net8.0\CommunityToolkit.Diagnostics.dll</HintPath>
+    </Reference>
+    <Reference Include="CommunityToolkit.Mvvm">
+      <HintPath>$(NuGetPackageRoot)communitytoolkit.mvvm\8.3.2\lib\net8.0\CommunityToolkit.Mvvm.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

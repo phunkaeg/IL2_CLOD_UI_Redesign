@@ -1,0 +1,46 @@
+newmtl 0b887b72-3864-4032-b4cf-3adacb81110d
+Kd 1.000 1.000 1.000
+Ks 0.000 0.000 0.000
+Ns 30
+Ke 0.000 0.000 0.000
+map_Kd textures/hurricane_mk1_late_c.jpg
+map_Ks textures/hurricane_mk1_late_n_s.jpg
+map_normal textures/hurricane_mk1_late_n_n.jpg
+map_ao textures/hurricane_mk1_late_n_ao.jpg
+
+newmtl 22f291ca-ea0c-4415-a988-1a8aff47959f
+Kd 1.000 1.000 1.000
+Ks 0.898 0.898 0.898
+Ns 30
+Ke 0.000 0.000 0.000
+map_Kd textures/aircraft_inside2_a.jpg
+map_Ks textures/aircraft_inside2_n_s.jpg
+map_normal textures/aircraft_inside2_n_n.jpg
+map_ao textures/aircraft_inside2_n_ao.jpg
+
+newmtl 9a34bcd4-d330-4638-ba1d-e8312289d198
+Kd 1.000 1.000 1.000
+Ks 0.000 0.000 0.000
+Ns 30
+Ke 0.000 0.000 0.000
+map_Kd textures/hurricane_add_c.jpg
+map_Ks textures/hurricane_add_n_s.jpg
+map_normal textures/hurricane_add_n_n.jpg
+map_ao textures/hurricane_add_n_ao.jpg
+
+newmtl 553ed71b-dc98-402f-822b-8bb5603e10aa
+Kd 0.000 0.000 0.000
+Ks 1.000 1.000 1.000
+Ns 255
+Ke 0.000 0.000 0.000
+d 0.17
+
+newmtl 498732d0-06d6-4053-803d-b123c8704b14
+Kd 1.000 1.000 1.000
+Ks 0.000 0.000 0.000
+Ns 30
+Ke 0.000 0.000 0.000
+d 1
+map_Kd textures/barrage_balloon_rope.jpg
+map_d textures/barrage_balloon_rope_a.png
+
