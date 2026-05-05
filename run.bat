@@ -1,1 +1,1 @@
-dotnet run
+dotnet run --project PlaneLoadoutWpfTest.csproj

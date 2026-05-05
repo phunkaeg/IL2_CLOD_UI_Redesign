@@ -5,19 +5,43 @@
     <UseWPF>true</UseWPF>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <DefaultItemExcludes>$(DefaultItemExcludes);Packaging\**;publish\**;build-check-output*\**</DefaultItemExcludes>
   </PropertyGroup>
   <ItemGroup>
     <Resource Include="Assets\*.png" />
     <Resource Include="Assets\*.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="map_calibration_data.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Map_Calibration_data.txt" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
   </ItemGroup>
   <!-- 3-D model assets — copied to output so HelixToolkit can read them at runtime -->
   <ItemGroup>
-    <Content Include="Assets\3d\**\*" CopyToOutputDirectory="PreserveNewest"/>
+    <Content Include="Assets\3d\**\*" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Condition="Exists('$(UserProfile)\.nuget\packages\helixtoolkit.wpf\3.1.2\lib\net8.0-windows7.0\HelixToolkit.Wpf.dll')">
+    <Reference Include="HelixToolkit.Wpf">
+      <HintPath>$(UserProfile)\.nuget\packages\helixtoolkit.wpf\3.1.2\lib\net8.0-windows7.0\HelixToolkit.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="HelixToolkit">
+      <HintPath>$(UserProfile)\.nuget\packages\helixtoolkit\3.1.2\lib\net8.0\HelixToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="HelixToolkit.Geometry">
+      <HintPath>$(UserProfile)\.nuget\packages\helixtoolkit.geometry\3.1.2\lib\net8.0\HelixToolkit.Geometry.dll</HintPath>
+    </Reference>
+    <Reference Include="HelixToolkit.Maths">
+      <HintPath>$(UserProfile)\.nuget\packages\helixtoolkit.maths\3.1.2\lib\net8.0\HelixToolkit.Maths.dll</HintPath>
+    </Reference>
+    <Reference Include="CommunityToolkit.Common">
+      <HintPath>$(UserProfile)\.nuget\packages\communitytoolkit.common\8.3.2\lib\net8.0\CommunityToolkit.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="CommunityToolkit.Diagnostics">
+      <HintPath>$(UserProfile)\.nuget\packages\communitytoolkit.diagnostics\8.3.2\lib\net8.0\CommunityToolkit.Diagnostics.dll</HintPath>
+    </Reference>
+    <Reference Include="CommunityToolkit.Mvvm">
+      <HintPath>$(UserProfile)\.nuget\packages\communitytoolkit.mvvm\8.3.2\lib\net8.0\CommunityToolkit.Mvvm.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition="!Exists('$(UserProfile)\.nuget\packages\helixtoolkit.wpf\3.1.2\lib\net8.0-windows7.0\HelixToolkit.Wpf.dll')">
     <PackageReference Include="HelixToolkit.Wpf" Version="3.1.2" />
   </ItemGroup>
 </Project>

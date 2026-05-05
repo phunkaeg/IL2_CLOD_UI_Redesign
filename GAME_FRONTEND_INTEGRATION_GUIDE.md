@@ -7,10 +7,12 @@ This project is intentionally written in WPF/XAML/C# so the UI can move toward t
 - `Screens/*Screen.xaml` and `Screens/*Screen.xaml.cs` contain the visual pages.
 - `Theme.xaml` contains shared styling, colors, button templates, list styles, combo boxes, tabs, scrollbars, and panel chrome.
 - `Services/NavigationService.cs` is a simple WPF screen stack.
-- `Services/CampaignBoardService.cs` scans and parses campaign `.mis`, `.briefing`, and `campaigns.ini` data into a display model.
+- `Services/CampaignSelectionService.cs` discovers campaign selector entries, including vanilla campaigns and nested custom campaign folders.
+- `Services/CampaignBoardService.cs` scans and parses campaign `.mis`, `.briefing`, `.cs`, and `campaigns.ini` data into a display model.
 - `Services/MissionScannerService.cs` is a lighter single-mission scanner used by other menu screens.
 - `Services/MissionCatalog.cs` is an in-memory catalog populated from configured folder paths.
 - `AppSettings.cs` and `AppSettingsService.cs` store user-configured paths and UI preferences.
+- `Map_Calibration_data.txt` stores current Strait of Dover and Tobruk calibration points.
 
 ## Main Recommendation
 
@@ -60,6 +62,7 @@ Suggested screen ids:
 
 - `main-menu`
 - `single-player`
+- `campaign-selector`
 - `campaign-board`
 - `quick-mission`
 - `single-mission`
@@ -77,8 +80,9 @@ The WPF prototype can still map these ids to `UserControl` instances. The game m
 
 Current prototype:
 
-- `CampaignBoardService.ScanCampaignRoot(path)`
-- Reads `.mis`, `.briefing`, `campaigns.ini`, and local images directly from disk.
+- `CampaignSelectionService` discovers campaign entries from game/documents roots.
+- `CampaignBoardService` scans a selected campaign and parses `.mis`, `.briefing`, `.cs`, `campaigns.ini`, and local images directly from disk.
+- Campaign discovery is cached for the current app session. Manual rescan is explicit.
 
 Game integration target:
 
@@ -282,6 +286,9 @@ In the game, campaign and mission paths should usually come from the installatio
 - mission type inference
 - date/time extraction from briefing prose
 - day grouping for timeline display
+- single-route display for the selected playable flight
+- enemy sighting extraction from briefing prose
+- Strait of Dover and Tobruk map calibration
 
 Recommended hardening before game integration:
 
