@@ -4,6 +4,8 @@ This repository is a WPF/XAML/C# prototype of a recreated IL-2 Sturmovik: Cliffs
 
 The project is designed as a working prototype and integration reference. It is not currently wired into the real game engine, but the code is structured so the file-system scanners and prototype services can later be replaced by game-owned services.
 
+![Main menu](docs/main%20menu.png)
+
 ## Current Scope
 
 - Main menu and front-end navigation flow.
@@ -122,6 +124,8 @@ Multiplayer paths are documented but are not currently used by the campaign brow
 
 ## Campaign Board Highlights
 
+![Campaign board timeline and briefing](docs/campaign.png)
+
 - Campaign selector screen before the board.
 - Theatre filtering for Strait of Dover and Tobruk.
 - Campaign poster and description preview where campaign briefing/poster files exist.
@@ -134,6 +138,14 @@ Multiplayer paths are documented but are not currently used by the campaign brow
 - Met report widget.
 - Manual pilot log prototype.
 - Gallery and briefing views.
+
+## Aircraft And Loadout Screens
+
+![Plane default configuration](docs/plane%20.png)
+
+![Loadout and gun convergence](docs/Loadout.png)
+
+The aircraft configuration and loadout screens recreate the broader front-end flow around aircraft defaults, armament, gun convergence, and aircraft/pilot preview panels. These screens are prototype UI references and are not currently connected to the real game loadout systems.
 
 ## 3D Model Notes
 
@@ -154,6 +166,9 @@ If the app shows cube placeholders, check that the OBJ, MTL, and texture files e
 
 - `MISSION_DATA_PARSING.md`
   - Current WPF parser notes for campaign, single mission, quick mission, maps, and route data.
+
+- `MISSION_FILE_STRUCTURE_GUIDE.md`
+  - Standalone field guide for another chat/tool to understand Cliffs of Dover `.mis`, `.briefing`, `.cs`, campaign folders, roles, routes, and mission-generation risks.
 
 - `GAME_FRONTEND_INTEGRATION_GUIDE.md`
   - Suggested interface layer for replacing prototype services with game-owned services.
